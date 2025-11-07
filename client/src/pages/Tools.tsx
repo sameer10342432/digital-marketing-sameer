@@ -14,8 +14,8 @@ import { Calculator, TrendingUp, Mail, Hash, Link as LinkIcon, Search, FileText,
 export default function Tools() {
   useEffect(() => {
     setPageMeta(
-      'Free Digital Marketing Tools - 35+ Professional Calculators',
-      'Access 35+ powerful free digital marketing tools including ROI calculator, conversion rate calculator, CTR calculator, social media tools, and more professional marketing calculators.'
+      'Free Digital Marketing Tools - 60+ Professional Calculators',
+      'Access 60+ powerful free digital marketing tools including ROI calculator, SEO tools, social media analytics, conversion calculators, and advanced marketing metrics for data-driven decisions.'
     );
   }, []);
 
@@ -59,6 +59,33 @@ export default function Tools() {
   const [mobileVsDesktop, setMobileVsDesktop] = useState<{ winner: string; difference: number } | null>(null);
   const [mqlScore, setMqlScore] = useState<{ score: number; quality: string; recommendations: string[] } | null>(null);
   const [downloadRate, setDownloadRate] = useState<{ rate: number; effectiveness: string } | null>(null);
+
+  // New advanced tools state
+  const [seoTrafficValue, setSeoTrafficValue] = useState<{ monthlyValue: number; annualValue: number } | null>(null);
+  const [backlinkQuality, setBacklinkQuality] = useState<{ score: number; quality: string; advice: string } | null>(null);
+  const [domainAuthority, setDomainAuthority] = useState<{ score: number; level: string } | null>(null);
+  const [socialGrowthRate, setSocialGrowthRate] = useState<{ monthlyGrowth: number; projectedFollowers: number } | null>(null);
+  const [viralCoefficient, setViralCoefficient] = useState<{ coefficient: number; viralStatus: string } | null>(null);
+  const [churnRate, setChurnRate] = useState<{ rate: number; retention: number } | null>(null);
+  const [ltvCacRatio, setLtvCacRatio] = useState<{ ratio: number; health: string } | null>(null);
+  const [paybackPeriod, setPaybackPeriod] = useState<{ months: number; assessment: string } | null>(null);
+  const [impressionShare, setImpressionShare] = useState<{ share: number; lostOpportunity: number } | null>(null);
+  const [googleAdsQuality, setGoogleAdsQuality] = useState<{ score: number; rating: string; tips: string[] } | null>(null);
+  const [fbAdRelevance, setFbAdRelevance] = useState<{ score: number; rating: string } | null>(null);
+  const [instagramEngagement, setInstagramEngagement] = useState<{ rate: number; quality: string } | null>(null);
+  const [tiktokEngagement, setTiktokEngagement] = useState<{ rate: number; viralPotential: string } | null>(null);
+  const [linkedinReach, setLinkedinReach] = useState<{ estimatedReach: number; engagement: number } | null>(null);
+  const [youtubeCpm, setYoutubeCpm] = useState<{ cpm: number; estimatedRevenue: number } | null>(null);
+  const [twitterEngagement, setTwitterEngagement] = useState<{ rate: number; impressions: number } | null>(null);
+  const [pinterestPerformance, setPinterestPerformance] = useState<{ saveRate: number; reach: number } | null>(null);
+  const [emailDeliverability, setEmailDeliverability] = useState<{ score: number; issues: string[] } | null>(null);
+  const [cartAbandonment, setCartAbandonment] = useState<{ rate: number; lostRevenue: number } | null>(null);
+  const [affiliateCommission, setAffiliateCommission] = useState<{ commission: number; roi: number } | null>(null);
+  const [podcastRoi, setPodcastRoi] = useState<{ roi: number; costPerListener: number } | null>(null);
+  const [blogPerformance, setBlogPerformance] = useState<{ score: number; recommendations: string[] } | null>(null);
+  const [keywordDifficulty, setKeywordDifficulty] = useState<{ difficulty: number; level: string } | null>(null);
+  const [serpClickDistribution, setSerpClickDistribution] = useState<{ position: number; expectedCtr: number } | null>(null);
+  const [competitorGap, setCompetitorGap] = useState<{ gap: number; opportunities: string[] } | null>(null);
 
   // Original calculation functions
   const calculateROI = (e: React.FormEvent<HTMLFormElement>) => {
@@ -861,6 +888,547 @@ export default function Tools() {
     setDownloadRate({ rate, effectiveness });
   };
 
+  const calculateSeoTrafficValue = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const monthlyVisitors = parseFloat(formData.get('seoVisitors') as string);
+    const avgCpc = parseFloat(formData.get('avgCpc') as string);
+    
+    if (!monthlyVisitors || !avgCpc) {
+      setSeoTrafficValue(null);
+      return;
+    }
+    
+    const monthlyValue = monthlyVisitors * avgCpc;
+    const annualValue = monthlyValue * 12;
+    
+    setSeoTrafficValue({ monthlyValue, annualValue });
+  };
+
+  const analyzeBacklinkQuality = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const domainRating = parseFloat(formData.get('domainRating') as string);
+    const dofollow = formData.get('dofollow') === 'true';
+    const relevantNiche = formData.get('relevantNiche') === 'true';
+    
+    let score = 0;
+    
+    if (domainRating >= 70) score += 40;
+    else if (domainRating >= 50) score += 30;
+    else if (domainRating >= 30) score += 20;
+    else score += 10;
+    
+    if (dofollow) score += 30;
+    if (relevantNiche) score += 30;
+    
+    let quality = '';
+    let advice = '';
+    if (score >= 80) {
+      quality = 'Excellent - High Authority';
+      advice = 'This is a premium backlink. Focus on getting more like this.';
+    } else if (score >= 60) {
+      quality = 'Good - Valuable Link';
+      advice = 'Quality backlink that will help your rankings.';
+    } else if (score >= 40) {
+      quality = 'Average - Some Value';
+      advice = 'Acceptable but aim for higher quality links.';
+    } else {
+      quality = 'Low - Minimal Impact';
+      advice = 'Focus on acquiring links from higher authority sites.';
+    }
+    
+    setBacklinkQuality({ score, quality, advice });
+  };
+
+  const estimateDomainAuthority = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const backlinks = parseFloat(formData.get('backlinks') as string);
+    const referringDomains = parseFloat(formData.get('referringDomains') as string);
+    const domainAge = parseFloat(formData.get('domainAge') as string);
+    
+    let score = 0;
+    
+    if (backlinks >= 10000) score += 35;
+    else if (backlinks >= 1000) score += 25;
+    else if (backlinks >= 100) score += 15;
+    else score += 5;
+    
+    if (referringDomains >= 500) score += 35;
+    else if (referringDomains >= 100) score += 25;
+    else if (referringDomains >= 20) score += 15;
+    else score += 5;
+    
+    if (domainAge >= 5) score += 30;
+    else if (domainAge >= 2) score += 20;
+    else score += 10;
+    
+    let level = '';
+    if (score >= 80) level = 'Very High Authority';
+    else if (score >= 60) level = 'High Authority';
+    else if (score >= 40) level = 'Medium Authority';
+    else level = 'Low Authority';
+    
+    setDomainAuthority({ score, level });
+  };
+
+  const calculateSocialGrowthRate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const currentFollowers = parseFloat(formData.get('currentFollowers') as string);
+    const newFollowers = parseFloat(formData.get('newFollowersMonth') as string);
+    const months = parseFloat(formData.get('projectionMonths') as string) || 6;
+    
+    if (!currentFollowers) {
+      setSocialGrowthRate(null);
+      return;
+    }
+    
+    const monthlyGrowth = (newFollowers / currentFollowers) * 100;
+    const projectedFollowers = currentFollowers * Math.pow(1 + (monthlyGrowth / 100), months);
+    
+    setSocialGrowthRate({ monthlyGrowth, projectedFollowers: Math.round(projectedFollowers) });
+  };
+
+  const calculateViralCoefficient = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const invitesSent = parseFloat(formData.get('invitesSent') as string);
+    const conversionRate = parseFloat(formData.get('inviteConversion') as string);
+    
+    const coefficient = (invitesSent * (conversionRate / 100));
+    
+    let viralStatus = '';
+    if (coefficient > 1) viralStatus = 'Viral! Your product is growing exponentially';
+    else if (coefficient >= 0.8) viralStatus = 'Near Viral - Close to exponential growth';
+    else if (coefficient >= 0.5) viralStatus = 'Good Growth - Positive word of mouth';
+    else viralStatus = 'Low - Need more referral incentives';
+    
+    setViralCoefficient({ coefficient, viralStatus });
+  };
+
+  const calculateChurnRate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const startCustomers = parseFloat(formData.get('startCustomers') as string);
+    const endCustomers = parseFloat(formData.get('endCustomers') as string);
+    
+    if (!startCustomers || startCustomers === 0) {
+      setChurnRate(null);
+      return;
+    }
+    
+    const churned = startCustomers - endCustomers;
+    const rate = (churned / startCustomers) * 100;
+    const retention = 100 - rate;
+    
+    setChurnRate({ rate: Math.max(0, rate), retention: Math.max(0, retention) });
+  };
+
+  const calculateLtvCacRatio = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const ltv = parseFloat(formData.get('ltv') as string);
+    const cac = parseFloat(formData.get('cacRatio') as string);
+    
+    if (!cac || cac === 0) {
+      setLtvCacRatio(null);
+      return;
+    }
+    
+    const ratio = ltv / cac;
+    
+    let health = '';
+    if (ratio >= 3) health = 'Excellent - Highly Profitable';
+    else if (ratio >= 2) health = 'Good - Sustainable Growth';
+    else if (ratio >= 1) health = 'Fair - Break Even';
+    else health = 'Poor - Losing Money';
+    
+    setLtvCacRatio({ ratio, health });
+  };
+
+  const calculatePaybackPeriod = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const cac = parseFloat(formData.get('cacPayback') as string);
+    const monthlyRevenue = parseFloat(formData.get('monthlyRevenue') as string);
+    
+    if (!monthlyRevenue || monthlyRevenue === 0) {
+      setPaybackPeriod(null);
+      return;
+    }
+    
+    const months = cac / monthlyRevenue;
+    
+    let assessment = '';
+    if (months <= 6) assessment = 'Excellent - Quick Payback';
+    else if (months <= 12) assessment = 'Good - Reasonable Timeline';
+    else if (months <= 18) assessment = 'Fair - Long Payback';
+    else assessment = 'Poor - Very Long Payback';
+    
+    setPaybackPeriod({ months, assessment });
+  };
+
+  const calculateImpressionShare = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const impressions = parseFloat(formData.get('impressions') as string);
+    const eligibleImpressions = parseFloat(formData.get('eligibleImpressions') as string);
+    
+    if (!eligibleImpressions || eligibleImpressions === 0) {
+      setImpressionShare(null);
+      return;
+    }
+    
+    const share = (impressions / eligibleImpressions) * 100;
+    const lostOpportunity = 100 - share;
+    
+    setImpressionShare({ share, lostOpportunity });
+  };
+
+  const calculateGoogleAdsQuality = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const ctr = parseFloat(formData.get('adCtr') as string);
+    const relevance = parseFloat(formData.get('adRelevance') as string);
+    const landingExperience = parseFloat(formData.get('landingExperience') as string);
+    
+    const score = Math.round((ctr + relevance + landingExperience) / 3);
+    
+    let rating = '';
+    let tips: string[] = [];
+    if (score >= 8) {
+      rating = 'Excellent - Top Performance';
+      tips = ['Maintain current performance', 'Test new ad variations'];
+    } else if (score >= 6) {
+      rating = 'Good - Above Average';
+      tips = ['Improve landing page speed', 'Test different CTAs'];
+    } else if (score >= 4) {
+      rating = 'Average - Room for Improvement';
+      tips = ['Increase ad relevance', 'Optimize landing page', 'Improve CTR with better copy'];
+    } else {
+      rating = 'Poor - Needs Work';
+      tips = ['Revise ad copy completely', 'Align keywords with ad text', 'Create dedicated landing pages'];
+    }
+    
+    setGoogleAdsQuality({ score, rating, tips });
+  };
+
+  const calculateFbAdRelevance = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const engagementRate = parseFloat(formData.get('fbEngagementRate') as string);
+    const conversionRate = parseFloat(formData.get('fbConversionRate') as string);
+    
+    const score = Math.round(engagementRate * 3 + conversionRate * 7);
+    
+    let rating = '';
+    if (score >= 8) rating = 'Excellent - High Relevance';
+    else if (score >= 6) rating = 'Good - Above Average';
+    else if (score >= 4) rating = 'Average - Moderate Relevance';
+    else rating = 'Below Average - Improve Targeting';
+    
+    setFbAdRelevance({ score, rating });
+  };
+
+  const calculateInstagramEngagement = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const likes = parseFloat(formData.get('igLikes') as string) || 0;
+    const comments = parseFloat(formData.get('igComments') as string) || 0;
+    const saves = parseFloat(formData.get('igSaves') as string) || 0;
+    const followers = parseFloat(formData.get('igFollowers') as string);
+    
+    if (!followers || followers === 0) {
+      setInstagramEngagement(null);
+      return;
+    }
+    
+    const rate = ((likes + comments * 2 + saves * 3) / followers) * 100;
+    
+    let quality = '';
+    if (rate >= 5) quality = 'Excellent - Highly Engaging';
+    else if (rate >= 3) quality = 'Good - Strong Engagement';
+    else if (rate >= 1) quality = 'Average - Normal Performance';
+    else quality = 'Low - Needs Improvement';
+    
+    setInstagramEngagement({ rate, quality });
+  };
+
+  const calculateTiktokEngagement = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const views = parseFloat(formData.get('tiktokViews') as string);
+    const likes = parseFloat(formData.get('tiktokLikes') as string) || 0;
+    const shares = parseFloat(formData.get('tiktokShares') as string) || 0;
+    const comments = parseFloat(formData.get('tiktokComments') as string) || 0;
+    
+    if (!views || views === 0) {
+      setTiktokEngagement(null);
+      return;
+    }
+    
+    const rate = ((likes + shares * 2 + comments * 3) / views) * 100;
+    
+    let viralPotential = '';
+    if (rate >= 10) viralPotential = 'Viral! Excellent Performance';
+    else if (rate >= 5) viralPotential = 'High - Strong Potential';
+    else if (rate >= 2) viralPotential = 'Good - Above Average';
+    else viralPotential = 'Low - Optimize Content';
+    
+    setTiktokEngagement({ rate, viralPotential });
+  };
+
+  const calculateLinkedinReach = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const connections = parseFloat(formData.get('linkedinConnections') as string);
+    const postEngagement = parseFloat(formData.get('linkedinPostEngagement') as string);
+    
+    const estimatedReach = Math.round(connections * 3.5);
+    const engagement = (postEngagement / estimatedReach) * 100;
+    
+    setLinkedinReach({ estimatedReach, engagement });
+  };
+
+  const calculateYoutubeCpm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const views = parseFloat(formData.get('youtubeViews') as string);
+    const cpm = parseFloat(formData.get('estimatedCpm') as string);
+    
+    if (!views) {
+      setYoutubeCpm(null);
+      return;
+    }
+    
+    const estimatedRevenue = (views / 1000) * cpm;
+    
+    setYoutubeCpm({ cpm, estimatedRevenue });
+  };
+
+  const calculateTwitterEngagement = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const likes = parseFloat(formData.get('twitterLikes') as string) || 0;
+    const retweets = parseFloat(formData.get('twitterRetweets') as string) || 0;
+    const replies = parseFloat(formData.get('twitterReplies') as string) || 0;
+    const followers = parseFloat(formData.get('twitterFollowers') as string);
+    
+    if (!followers || followers === 0) {
+      setTwitterEngagement(null);
+      return;
+    }
+    
+    const rate = ((likes + retweets * 2 + replies * 3) / followers) * 100;
+    const impressions = Math.round(followers * 3.8);
+    
+    setTwitterEngagement({ rate, impressions });
+  };
+
+  const calculatePinterestPerformance = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const impressions = parseFloat(formData.get('pinterestImpressions') as string);
+    const saves = parseFloat(formData.get('pinterestSaves') as string);
+    
+    if (!impressions || impressions === 0) {
+      setPinterestPerformance(null);
+      return;
+    }
+    
+    const saveRate = (saves / impressions) * 100;
+    const reach = Math.round(saves * 15);
+    
+    setPinterestPerformance({ saveRate, reach });
+  };
+
+  const analyzeEmailDeliverability = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const bounceRate = parseFloat(formData.get('bounceRate') as string);
+    const spamRate = parseFloat(formData.get('spamRate') as string);
+    const openRate = parseFloat(formData.get('emailOpenRate') as string);
+    
+    let score = 100;
+    score -= bounceRate * 5;
+    score -= spamRate * 10;
+    if (openRate < 15) score -= 20;
+    
+    score = Math.max(0, Math.min(100, score));
+    
+    const issues: string[] = [];
+    if (bounceRate > 5) issues.push('High bounce rate - Clean your email list');
+    if (spamRate > 0.5) issues.push('Spam complaints - Review your content');
+    if (openRate < 15) issues.push('Low open rate - Improve subject lines');
+    if (issues.length === 0) issues.push('Good deliverability - Keep monitoring');
+    
+    setEmailDeliverability({ score, issues });
+  };
+
+  const calculateCartAbandonment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const cartsCreated = parseFloat(formData.get('cartsCreated') as string);
+    const cartsCompleted = parseFloat(formData.get('cartsCompleted') as string);
+    const avgCartValue = parseFloat(formData.get('avgCartValue') as string);
+    
+    if (!cartsCreated || cartsCreated === 0) {
+      setCartAbandonment(null);
+      return;
+    }
+    
+    const rate = ((cartsCreated - cartsCompleted) / cartsCreated) * 100;
+    const lostRevenue = (cartsCreated - cartsCompleted) * avgCartValue;
+    
+    setCartAbandonment({ rate, lostRevenue });
+  };
+
+  const calculateAffiliateCommission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const sales = parseFloat(formData.get('affiliateSales') as string);
+    const commissionRate = parseFloat(formData.get('commissionRate') as string);
+    const adSpend = parseFloat(formData.get('affiliateAdSpend') as string) || 0;
+    
+    const commission = sales * (commissionRate / 100);
+    const roi = adSpend > 0 ? ((commission - adSpend) / adSpend) * 100 : 0;
+    
+    setAffiliateCommission({ commission, roi });
+  };
+
+  const calculatePodcastRoi = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const productionCost = parseFloat(formData.get('productionCost') as string);
+    const promotionCost = parseFloat(formData.get('promotionCost') as string);
+    const revenue = parseFloat(formData.get('podcastRevenue') as string);
+    const listeners = parseFloat(formData.get('listeners') as string);
+    
+    const totalCost = productionCost + promotionCost;
+    
+    if (!totalCost || totalCost === 0) {
+      setPodcastRoi(null);
+      return;
+    }
+    
+    const roi = ((revenue - totalCost) / totalCost) * 100;
+    const costPerListener = listeners > 0 ? totalCost / listeners : 0;
+    
+    setPodcastRoi({ roi, costPerListener });
+  };
+
+  const analyzeBlogPerformance = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const pageviews = parseFloat(formData.get('blogPageviews') as string);
+    const avgTimeOnPage = parseFloat(formData.get('avgTimeOnPage') as string);
+    const shareRate = parseFloat(formData.get('shareRate') as string);
+    
+    let score = 0;
+    const recommendations: string[] = [];
+    
+    if (pageviews >= 1000) {
+      score += 30;
+    } else {
+      recommendations.push('Increase SEO optimization and promotion');
+    }
+    
+    if (avgTimeOnPage >= 3) {
+      score += 40;
+    } else {
+      recommendations.push('Improve content engagement and readability');
+    }
+    
+    if (shareRate >= 2) {
+      score += 30;
+    } else {
+      recommendations.push('Add more social sharing buttons and CTAs');
+    }
+    
+    if (recommendations.length === 0) {
+      recommendations.push('Excellent performance - Keep creating quality content');
+    }
+    
+    setBlogPerformance({ score, recommendations });
+  };
+
+  const calculateKeywordDifficulty = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const domainAuthority = parseFloat(formData.get('competitorDA') as string);
+    const backlinks = parseFloat(formData.get('competitorBacklinks') as string);
+    const searchVolume = parseFloat(formData.get('searchVolume') as string);
+    
+    let difficulty = 0;
+    
+    if (domainAuthority >= 70) difficulty += 40;
+    else if (domainAuthority >= 50) difficulty += 30;
+    else if (domainAuthority >= 30) difficulty += 20;
+    else difficulty += 10;
+    
+    if (backlinks >= 1000) difficulty += 30;
+    else if (backlinks >= 100) difficulty += 20;
+    else difficulty += 10;
+    
+    if (searchVolume >= 10000) difficulty += 30;
+    else if (searchVolume >= 1000) difficulty += 20;
+    else difficulty += 10;
+    
+    let level = '';
+    if (difficulty >= 70) level = 'Very Hard - Long-term Strategy';
+    else if (difficulty >= 50) level = 'Hard - Significant Effort Required';
+    else if (difficulty >= 30) level = 'Medium - Achievable with Work';
+    else level = 'Easy - Quick Win Opportunity';
+    
+    setKeywordDifficulty({ difficulty, level });
+  };
+
+  const calculateSerpClickDistribution = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const position = parseFloat(formData.get('serpPosition') as string);
+    
+    const ctrMap: Record<number, number> = {
+      1: 31.7, 2: 24.7, 3: 18.7, 4: 13.6, 5: 9.5,
+      6: 6.3, 7: 4.5, 8: 3.1, 9: 2.2, 10: 1.6
+    };
+    
+    const expectedCtr = ctrMap[position] || (position <= 20 ? 1.0 : 0.3);
+    
+    setSerpClickDistribution({ position, expectedCtr });
+  };
+
+  const analyzeCompetitorGap = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const yourTraffic = parseFloat(formData.get('yourTraffic') as string);
+    const competitorTraffic = parseFloat(formData.get('competitorTraffic') as string);
+    
+    if (!yourTraffic || !competitorTraffic) {
+      setCompetitorGap(null);
+      return;
+    }
+    
+    const gap = ((competitorTraffic - yourTraffic) / competitorTraffic) * 100;
+    
+    const opportunities: string[] = [];
+    if (gap > 50) {
+      opportunities.push('Analyze competitor keywords');
+      opportunities.push('Improve content quality');
+      opportunities.push('Build more backlinks');
+    } else if (gap > 25) {
+      opportunities.push('Optimize existing content');
+      opportunities.push('Target long-tail keywords');
+    } else {
+      opportunities.push('Maintain current strategy');
+      opportunities.push('Focus on conversion optimization');
+    }
+    
+    setCompetitorGap({ gap, opportunities });
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -872,7 +1440,7 @@ export default function Tools() {
                 Free Digital Marketing Tools
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-tools-description">
-                35+ powerful calculators and analyzers to optimize your marketing campaigns
+                60+ powerful calculators and analyzers to optimize your marketing campaigns
               </p>
             </div>
 
@@ -914,6 +1482,31 @@ export default function Tools() {
                   <TabsTrigger value="mobile-desktop" data-testid="tab-mobile-desktop" className="whitespace-nowrap">Mobile vs Desktop</TabsTrigger>
                   <TabsTrigger value="mql" data-testid="tab-mql" className="whitespace-nowrap">MQL Score</TabsTrigger>
                   <TabsTrigger value="download-rate" data-testid="tab-download-rate" className="whitespace-nowrap">Download Rate</TabsTrigger>
+                  <TabsTrigger value="seo-traffic-value" data-testid="tab-seo-traffic-value" className="whitespace-nowrap">SEO Value</TabsTrigger>
+                  <TabsTrigger value="backlink-quality" data-testid="tab-backlink-quality" className="whitespace-nowrap">Backlink</TabsTrigger>
+                  <TabsTrigger value="domain-authority" data-testid="tab-domain-authority" className="whitespace-nowrap">Domain Authority</TabsTrigger>
+                  <TabsTrigger value="social-growth" data-testid="tab-social-growth" className="whitespace-nowrap">Social Growth</TabsTrigger>
+                  <TabsTrigger value="viral-coefficient" data-testid="tab-viral-coefficient" className="whitespace-nowrap">Viral</TabsTrigger>
+                  <TabsTrigger value="churn-rate" data-testid="tab-churn-rate" className="whitespace-nowrap">Churn Rate</TabsTrigger>
+                  <TabsTrigger value="ltv-cac" data-testid="tab-ltv-cac" className="whitespace-nowrap">LTV/CAC</TabsTrigger>
+                  <TabsTrigger value="payback-period" data-testid="tab-payback-period" className="whitespace-nowrap">Payback</TabsTrigger>
+                  <TabsTrigger value="impression-share" data-testid="tab-impression-share" className="whitespace-nowrap">Impression Share</TabsTrigger>
+                  <TabsTrigger value="google-ads-quality" data-testid="tab-google-ads-quality" className="whitespace-nowrap">Google Ads</TabsTrigger>
+                  <TabsTrigger value="fb-ad-relevance" data-testid="tab-fb-ad-relevance" className="whitespace-nowrap">Facebook Ads</TabsTrigger>
+                  <TabsTrigger value="instagram-engagement" data-testid="tab-instagram-engagement" className="whitespace-nowrap">Instagram</TabsTrigger>
+                  <TabsTrigger value="tiktok-engagement" data-testid="tab-tiktok-engagement" className="whitespace-nowrap">TikTok</TabsTrigger>
+                  <TabsTrigger value="linkedin-reach" data-testid="tab-linkedin-reach" className="whitespace-nowrap">LinkedIn</TabsTrigger>
+                  <TabsTrigger value="youtube-cpm" data-testid="tab-youtube-cpm" className="whitespace-nowrap">YouTube CPM</TabsTrigger>
+                  <TabsTrigger value="twitter-engagement" data-testid="tab-twitter-engagement" className="whitespace-nowrap">Twitter/X</TabsTrigger>
+                  <TabsTrigger value="pinterest-performance" data-testid="tab-pinterest-performance" className="whitespace-nowrap">Pinterest</TabsTrigger>
+                  <TabsTrigger value="email-deliverability" data-testid="tab-email-deliverability" className="whitespace-nowrap">Email Deliverability</TabsTrigger>
+                  <TabsTrigger value="cart-abandonment" data-testid="tab-cart-abandonment" className="whitespace-nowrap">Cart Abandonment</TabsTrigger>
+                  <TabsTrigger value="affiliate-commission" data-testid="tab-affiliate-commission" className="whitespace-nowrap">Affiliate</TabsTrigger>
+                  <TabsTrigger value="podcast-roi" data-testid="tab-podcast-roi" className="whitespace-nowrap">Podcast ROI</TabsTrigger>
+                  <TabsTrigger value="blog-performance" data-testid="tab-blog-performance" className="whitespace-nowrap">Blog Performance</TabsTrigger>
+                  <TabsTrigger value="keyword-difficulty" data-testid="tab-keyword-difficulty" className="whitespace-nowrap">Keyword Difficulty</TabsTrigger>
+                  <TabsTrigger value="serp-ctr" data-testid="tab-serp-ctr" className="whitespace-nowrap">SERP CTR</TabsTrigger>
+                  <TabsTrigger value="competitor-gap" data-testid="tab-competitor-gap" className="whitespace-nowrap">Competitor Gap</TabsTrigger>
                 </TabsList>
               </div>
 
@@ -2642,6 +3235,391 @@ export default function Tools() {
                     </form>
                   </CardContent>
                 </Card>
+              </TabsContent>
+
+              <TabsContent value="seo-traffic-value">
+                <Card><CardHeader><CardTitle><Search className="inline h-5 w-5 mr-2" />SEO Traffic Value Calculator</CardTitle><CardDescription>Calculate the monetary value of your organic traffic</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateSeoTrafficValue} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="seoVisitors">Monthly Organic Visitors</Label>
+                        <Input id="seoVisitors" name="seoVisitors" type="number" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="avgCpc">Average CPC in Your Niche ($)</Label>
+                        <Input id="avgCpc" name="avgCpc" type="number" step="0.01" placeholder="2.50" required /></div>
+                      <Button type="submit">Calculate Value</Button>
+                      {seoTrafficValue && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Monthly Traffic Value: ${seoTrafficValue.monthlyValue.toFixed(2)}</p>
+                          <p className="text-lg font-semibold">Annual Traffic Value: ${seoTrafficValue.annualValue.toFixed(2)}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="backlink-quality">
+                <Card><CardHeader><CardTitle><LinkIcon className="inline h-5 w-5 mr-2" />Backlink Quality Analyzer</CardTitle><CardDescription>Assess the quality and value of backlinks</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={analyzeBacklinkQuality} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="domainRating">Domain Rating (0-100)</Label>
+                        <Input id="domainRating" name="domainRating" type="number" placeholder="50" required /></div>
+                      <div className="space-y-2"><Label>Link Type</Label>
+                        <select name="dofollow" className="w-full p-2 border rounded"><option value="true">Dofollow</option><option value="false">Nofollow</option></select></div>
+                      <div className="space-y-2"><Label>Niche Relevance</Label>
+                        <select name="relevantNiche" className="w-full p-2 border rounded"><option value="true">Relevant</option><option value="false">Not Relevant</option></select></div>
+                      <Button type="submit">Analyze Quality</Button>
+                      {backlinkQuality && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Quality Score: {backlinkQuality.score}/100</p>
+                          <p className="text-lg">Quality: {backlinkQuality.quality}</p>
+                          <p className="text-sm mt-2">{backlinkQuality.advice}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="domain-authority">
+                <Card><CardHeader><CardTitle><Award className="inline h-5 w-5 mr-2" />Domain Authority Estimator</CardTitle><CardDescription>Estimate your domain's authority score</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={estimateDomainAuthority} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="backlinks">Total Backlinks</Label>
+                        <Input id="backlinks" name="backlinks" type="number" placeholder="500" required /></div>
+                      <div className="space-y-2"><Label htmlFor="referringDomains">Referring Domains</Label>
+                        <Input id="referringDomains" name="referringDomains" type="number" placeholder="50" required /></div>
+                      <div className="space-y-2"><Label htmlFor="domainAge">Domain Age (years)</Label>
+                        <Input id="domainAge" name="domainAge" type="number" step="0.1" placeholder="3" required /></div>
+                      <Button type="submit">Estimate Authority</Button>
+                      {domainAuthority && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Domain Authority: {domainAuthority.score}/100</p>
+                          <p className="text-lg">Level: {domainAuthority.level}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="social-growth">
+                <Card><CardHeader><CardTitle><TrendingUp className="inline h-5 w-5 mr-2" />Social Media Growth Rate</CardTitle><CardDescription>Project future follower growth</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateSocialGrowthRate} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="currentFollowers">Current Followers</Label>
+                        <Input id="currentFollowers" name="currentFollowers" type="number" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="newFollowersMonth">New Followers This Month</Label>
+                        <Input id="newFollowersMonth" name="newFollowersMonth" type="number" placeholder="500" required /></div>
+                      <div className="space-y-2"><Label htmlFor="projectionMonths">Projection Period (months)</Label>
+                        <Input id="projectionMonths" name="projectionMonths" type="number" placeholder="6" /></div>
+                      <Button type="submit">Calculate Growth</Button>
+                      {socialGrowthRate && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Monthly Growth Rate: {socialGrowthRate.monthlyGrowth.toFixed(2)}%</p>
+                          <p className="text-lg">Projected Followers: {socialGrowthRate.projectedFollowers.toLocaleString()}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="viral-coefficient">
+                <Card><CardHeader><CardTitle><Zap className="inline h-5 w-5 mr-2" />Viral Coefficient Calculator</CardTitle><CardDescription>Measure viral growth potential</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateViralCoefficient} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="invitesSent">Avg Invites Sent Per User</Label>
+                        <Input id="invitesSent" name="invitesSent" type="number" step="0.1" placeholder="5" required /></div>
+                      <div className="space-y-2"><Label htmlFor="inviteConversion">Invite Conversion Rate (%)</Label>
+                        <Input id="inviteConversion" name="inviteConversion" type="number" step="0.1" placeholder="20" required /></div>
+                      <Button type="submit">Calculate Coefficient</Button>
+                      {viralCoefficient && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Viral Coefficient: {viralCoefficient.coefficient.toFixed(2)}</p>
+                          <p className="text-lg">Status: {viralCoefficient.viralStatus}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="churn-rate">
+                <Card><CardHeader><CardTitle><RefreshCcw className="inline h-5 w-5 mr-2" />Churn Rate Calculator</CardTitle><CardDescription>Measure customer retention</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateChurnRate} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="startCustomers">Customers at Start</Label>
+                        <Input id="startCustomers" name="startCustomers" type="number" placeholder="1000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="endCustomers">Customers at End</Label>
+                        <Input id="endCustomers" name="endCustomers" type="number" placeholder="950" required /></div>
+                      <Button type="submit">Calculate Churn</Button>
+                      {churnRate && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Churn Rate: {churnRate.rate.toFixed(2)}%</p>
+                          <p className="text-lg">Retention Rate: {churnRate.retention.toFixed(2)}%</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="ltv-cac">
+                <Card><CardHeader><CardTitle><BarChart className="inline h-5 w-5 mr-2" />LTV/CAC Ratio Calculator</CardTitle><CardDescription>Measure business model health</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateLtvCacRatio} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="ltv">Customer Lifetime Value ($)</Label>
+                        <Input id="ltv" name="ltv" type="number" step="0.01" placeholder="1000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="cacRatio">Customer Acquisition Cost ($)</Label>
+                        <Input id="cacRatio" name="cacRatio" type="number" step="0.01" placeholder="300" required /></div>
+                      <Button type="submit">Calculate Ratio</Button>
+                      {ltvCacRatio && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">LTV/CAC Ratio: {ltvCacRatio.ratio.toFixed(2)}</p>
+                          <p className="text-lg">Health: {ltvCacRatio.health}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="payback-period">
+                <Card><CardHeader><CardTitle><Clock className="inline h-5 w-5 mr-2" />Payback Period Calculator</CardTitle><CardDescription>Calculate time to recover acquisition costs</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculatePaybackPeriod} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="cacPayback">Customer Acquisition Cost ($)</Label>
+                        <Input id="cacPayback" name="cacPayback" type="number" step="0.01" placeholder="300" required /></div>
+                      <div className="space-y-2"><Label htmlFor="monthlyRevenue">Monthly Revenue Per Customer ($)</Label>
+                        <Input id="monthlyRevenue" name="monthlyRevenue" type="number" step="0.01" placeholder="50" required /></div>
+                      <Button type="submit">Calculate Period</Button>
+                      {paybackPeriod && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Payback Period: {paybackPeriod.months.toFixed(1)} months</p>
+                          <p className="text-lg">Assessment: {paybackPeriod.assessment}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="impression-share">
+                <Card><CardHeader><CardTitle><Eye className="inline h-5 w-5 mr-2" />Impression Share Calculator</CardTitle><CardDescription>Measure ad visibility opportunity</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateImpressionShare} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="impressions">Your Impressions</Label>
+                        <Input id="impressions" name="impressions" type="number" placeholder="50000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="eligibleImpressions">Eligible Impressions</Label>
+                        <Input id="eligibleImpressions" name="eligibleImpressions" type="number" placeholder="100000" required /></div>
+                      <Button type="submit">Calculate Share</Button>
+                      {impressionShare && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Impression Share: {impressionShare.share.toFixed(2)}%</p>
+                          <p className="text-lg">Lost Opportunity: {impressionShare.lostOpportunity.toFixed(2)}%</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="google-ads-quality">
+                <Card><CardHeader><CardTitle><Target className="inline h-5 w-5 mr-2" />Google Ads Quality Score</CardTitle><CardDescription>Estimate your ads quality score</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateGoogleAdsQuality} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="adCtr">Expected CTR (1-10)</Label>
+                        <Input id="adCtr" name="adCtr" type="number" min="1" max="10" placeholder="7" required /></div>
+                      <div className="space-y-2"><Label htmlFor="adRelevance">Ad Relevance (1-10)</Label>
+                        <Input id="adRelevance" name="adRelevance" type="number" min="1" max="10" placeholder="8" required /></div>
+                      <div className="space-y-2"><Label htmlFor="landingExperience">Landing Page Experience (1-10)</Label>
+                        <Input id="landingExperience" name="landingExperience" type="number" min="1" max="10" placeholder="6" required /></div>
+                      <Button type="submit">Calculate Score</Button>
+                      {googleAdsQuality && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Quality Score: {googleAdsQuality.score}/10</p>
+                          <p className="text-lg">Rating: {googleAdsQuality.rating}</p>
+                          <ul className="mt-2 text-sm list-disc list-inside">{googleAdsQuality.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="fb-ad-relevance">
+                <Card><CardHeader><CardTitle><Users className="inline h-5 w-5 mr-2" />Facebook Ad Relevance Score</CardTitle><CardDescription>Measure Facebook ad quality</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateFbAdRelevance} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="fbEngagementRate">Engagement Rate (1-10)</Label>
+                        <Input id="fbEngagementRate" name="fbEngagementRate" type="number" min="1" max="10" placeholder="7" required /></div>
+                      <div className="space-y-2"><Label htmlFor="fbConversionRate">Conversion Rate (1-10)</Label>
+                        <Input id="fbConversionRate" name="fbConversionRate" type="number" min="1" max="10" placeholder="6" required /></div>
+                      <Button type="submit">Calculate Score</Button>
+                      {fbAdRelevance && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Relevance Score: {fbAdRelevance.score}/10</p>
+                          <p className="text-lg">Rating: {fbAdRelevance.rating}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="instagram-engagement">
+                <Card><CardHeader><CardTitle><Users className="inline h-5 w-5 mr-2" />Instagram Engagement Calculator</CardTitle><CardDescription>Measure Instagram post performance</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateInstagramEngagement} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="igFollowers">Followers</Label>
+                        <Input id="igFollowers" name="igFollowers" type="number" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="igLikes">Likes</Label>
+                        <Input id="igLikes" name="igLikes" type="number" placeholder="500" /></div>
+                      <div className="space-y-2"><Label htmlFor="igComments">Comments</Label>
+                        <Input id="igComments" name="igComments" type="number" placeholder="50" /></div>
+                      <div className="space-y-2"><Label htmlFor="igSaves">Saves</Label>
+                        <Input id="igSaves" name="igSaves" type="number" placeholder="20" /></div>
+                      <Button type="submit">Calculate Engagement</Button>
+                      {instagramEngagement && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Engagement Rate: {instagramEngagement.rate.toFixed(2)}%</p>
+                          <p className="text-lg">Quality: {instagramEngagement.quality}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="tiktok-engagement">
+                <Card><CardHeader><CardTitle><Video className="inline h-5 w-5 mr-2" />TikTok Engagement Calculator</CardTitle><CardDescription>Measure TikTok video viral potential</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateTiktokEngagement} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="tiktokViews">Video Views</Label>
+                        <Input id="tiktokViews" name="tiktokViews" type="number" placeholder="100000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="tiktokLikes">Likes</Label>
+                        <Input id="tiktokLikes" name="tiktokLikes" type="number" placeholder="5000" /></div>
+                      <div className="space-y-2"><Label htmlFor="tiktokShares">Shares</Label>
+                        <Input id="tiktokShares" name="tiktokShares" type="number" placeholder="500" /></div>
+                      <div className="space-y-2"><Label htmlFor="tiktokComments">Comments</Label>
+                        <Input id="tiktokComments" name="tiktokComments" type="number" placeholder="200" /></div>
+                      <Button type="submit">Calculate Engagement</Button>
+                      {tiktokEngagement && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Engagement Rate: {tiktokEngagement.rate.toFixed(2)}%</p>
+                          <p className="text-lg">Viral Potential: {tiktokEngagement.viralPotential}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="linkedin-reach">
+                <Card><CardHeader><CardTitle><Users className="inline h-5 w-5 mr-2" />LinkedIn Post Reach Estimator</CardTitle><CardDescription>Estimate your LinkedIn post reach</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateLinkedinReach} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="linkedinConnections">Connections</Label>
+                        <Input id="linkedinConnections" name="linkedinConnections" type="number" placeholder="2000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="linkedinPostEngagement">Post Engagements</Label>
+                        <Input id="linkedinPostEngagement" name="linkedinPostEngagement" type="number" placeholder="100" required /></div>
+                      <Button type="submit">Estimate Reach</Button>
+                      {linkedinReach && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Estimated Reach: {linkedinReach.estimatedReach.toLocaleString()}</p>
+                          <p className="text-lg">Engagement Rate: {linkedinReach.engagement.toFixed(2)}%</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="youtube-cpm">
+                <Card><CardHeader><CardTitle><Video className="inline h-5 w-5 mr-2" />YouTube CPM Revenue Calculator</CardTitle><CardDescription>Estimate YouTube ad revenue</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateYoutubeCpm} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="youtubeViews">Video Views</Label>
+                        <Input id="youtubeViews" name="youtubeViews" type="number" placeholder="100000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="estimatedCpm">Estimated CPM ($)</Label>
+                        <Input id="estimatedCpm" name="estimatedCpm" type="number" step="0.01" placeholder="5.00" required /></div>
+                      <Button type="submit">Calculate Revenue</Button>
+                      {youtubeCpm && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">CPM: ${youtubeCpm.cpm.toFixed(2)}</p>
+                          <p className="text-lg">Estimated Revenue: ${youtubeCpm.estimatedRevenue.toFixed(2)}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="twitter-engagement">
+                <Card><CardHeader><CardTitle><Hash className="inline h-5 w-5 mr-2" />Twitter/X Engagement Calculator</CardTitle><CardDescription>Measure tweet performance</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateTwitterEngagement} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="twitterFollowers">Followers</Label>
+                        <Input id="twitterFollowers" name="twitterFollowers" type="number" placeholder="5000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="twitterLikes">Likes</Label>
+                        <Input id="twitterLikes" name="twitterLikes" type="number" placeholder="100" /></div>
+                      <div className="space-y-2"><Label htmlFor="twitterRetweets">Retweets</Label>
+                        <Input id="twitterRetweets" name="twitterRetweets" type="number" placeholder="20" /></div>
+                      <div className="space-y-2"><Label htmlFor="twitterReplies">Replies</Label>
+                        <Input id="twitterReplies" name="twitterReplies" type="number" placeholder="10" /></div>
+                      <Button type="submit">Calculate Engagement</Button>
+                      {twitterEngagement && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Engagement Rate: {twitterEngagement.rate.toFixed(2)}%</p>
+                          <p className="text-lg">Estimated Impressions: {twitterEngagement.impressions.toLocaleString()}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="pinterest-performance">
+                <Card><CardHeader><CardTitle><Filter className="inline h-5 w-5 mr-2" />Pinterest Pin Performance</CardTitle><CardDescription>Measure pin engagement and reach</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculatePinterestPerformance} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="pinterestImpressions">Pin Impressions</Label>
+                        <Input id="pinterestImpressions" name="pinterestImpressions" type="number" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="pinterestSaves">Total Saves</Label>
+                        <Input id="pinterestSaves" name="pinterestSaves" type="number" placeholder="200" required /></div>
+                      <Button type="submit">Calculate Performance</Button>
+                      {pinterestPerformance && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Save Rate: {pinterestPerformance.saveRate.toFixed(2)}%</p>
+                          <p className="text-lg">Estimated Reach: {pinterestPerformance.reach.toLocaleString()}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="email-deliverability">
+                <Card><CardHeader><CardTitle><Mail className="inline h-5 w-5 mr-2" />Email Deliverability Score</CardTitle><CardDescription>Assess email list health</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={analyzeEmailDeliverability} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="bounceRate">Bounce Rate (%)</Label>
+                        <Input id="bounceRate" name="bounceRate" type="number" step="0.1" placeholder="2" required /></div>
+                      <div className="space-y-2"><Label htmlFor="spamRate">Spam Complaint Rate (%)</Label>
+                        <Input id="spamRate" name="spamRate" type="number" step="0.01" placeholder="0.1" required /></div>
+                      <div className="space-y-2"><Label htmlFor="emailOpenRate">Open Rate (%)</Label>
+                        <Input id="emailOpenRate" name="emailOpenRate" type="number" step="0.1" placeholder="25" required /></div>
+                      <Button type="submit">Analyze Deliverability</Button>
+                      {emailDeliverability && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Deliverability Score: {emailDeliverability.score.toFixed(0)}/100</p>
+                          <ul className="mt-2 text-sm list-disc list-inside">{emailDeliverability.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="cart-abandonment">
+                <Card><CardHeader><CardTitle><Smartphone className="inline h-5 w-5 mr-2" />Cart Abandonment Calculator</CardTitle><CardDescription>Measure e-commerce lost revenue</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateCartAbandonment} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="cartsCreated">Carts Created</Label>
+                        <Input id="cartsCreated" name="cartsCreated" type="number" placeholder="1000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="cartsCompleted">Completed Purchases</Label>
+                        <Input id="cartsCompleted" name="cartsCompleted" type="number" placeholder="300" required /></div>
+                      <div className="space-y-2"><Label htmlFor="avgCartValue">Average Cart Value ($)</Label>
+                        <Input id="avgCartValue" name="avgCartValue" type="number" step="0.01" placeholder="75" required /></div>
+                      <Button type="submit">Calculate Abandonment</Button>
+                      {cartAbandonment && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Abandonment Rate: {cartAbandonment.rate.toFixed(2)}%</p>
+                          <p className="text-lg text-red-500">Lost Revenue: ${cartAbandonment.lostRevenue.toFixed(2)}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="affiliate-commission">
+                <Card><CardHeader><CardTitle><DollarSign className="inline h-5 w-5 mr-2" />Affiliate Commission Calculator</CardTitle><CardDescription>Calculate affiliate marketing earnings</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateAffiliateCommission} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="affiliateSales">Total Sales ($)</Label>
+                        <Input id="affiliateSales" name="affiliateSales" type="number" step="0.01" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="commissionRate">Commission Rate (%)</Label>
+                        <Input id="commissionRate" name="commissionRate" type="number" step="0.1" placeholder="10" required /></div>
+                      <div className="space-y-2"><Label htmlFor="affiliateAdSpend">Ad Spend ($)</Label>
+                        <Input id="affiliateAdSpend" name="affiliateAdSpend" type="number" step="0.01" placeholder="500" /></div>
+                      <Button type="submit">Calculate Commission</Button>
+                      {affiliateCommission && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Total Commission: ${affiliateCommission.commission.toFixed(2)}</p>
+                          <p className="text-lg">ROI: {affiliateCommission.roi.toFixed(2)}%</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="podcast-roi">
+                <Card><CardHeader><CardTitle><Presentation className="inline h-5 w-5 mr-2" />Podcast ROI Calculator</CardTitle><CardDescription>Measure podcast profitability</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculatePodcastRoi} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="productionCost">Production Cost ($)</Label>
+                        <Input id="productionCost" name="productionCost" type="number" step="0.01" placeholder="500" required /></div>
+                      <div className="space-y-2"><Label htmlFor="promotionCost">Promotion Cost ($)</Label>
+                        <Input id="promotionCost" name="promotionCost" type="number" step="0.01" placeholder="200" required /></div>
+                      <div className="space-y-2"><Label htmlFor="podcastRevenue">Revenue ($)</Label>
+                        <Input id="podcastRevenue" name="podcastRevenue" type="number" step="0.01" placeholder="1000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="listeners">Total Listeners</Label>
+                        <Input id="listeners" name="listeners" type="number" placeholder="5000" required /></div>
+                      <Button type="submit">Calculate ROI</Button>
+                      {podcastRoi && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">ROI: {podcastRoi.roi.toFixed(2)}%</p>
+                          <p className="text-lg">Cost Per Listener: ${podcastRoi.costPerListener.toFixed(3)}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="blog-performance">
+                <Card><CardHeader><CardTitle><FileText className="inline h-5 w-5 mr-2" />Blog Post Performance Analyzer</CardTitle><CardDescription>Evaluate blog content effectiveness</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={analyzeBlogPerformance} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="blogPageviews">Monthly Pageviews</Label>
+                        <Input id="blogPageviews" name="blogPageviews" type="number" placeholder="5000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="avgTimeOnPage">Avg Time on Page (minutes)</Label>
+                        <Input id="avgTimeOnPage" name="avgTimeOnPage" type="number" step="0.1" placeholder="3.5" required /></div>
+                      <div className="space-y-2"><Label htmlFor="shareRate">Social Share Rate (%)</Label>
+                        <Input id="shareRate" name="shareRate" type="number" step="0.1" placeholder="2.5" required /></div>
+                      <Button type="submit">Analyze Performance</Button>
+                      {blogPerformance && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Performance Score: {blogPerformance.score}/100</p>
+                          <ul className="mt-2 text-sm list-disc list-inside">{blogPerformance.recommendations.map((rec, i) => <li key={i}>{rec}</li>)}</ul>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="keyword-difficulty">
+                <Card><CardHeader><CardTitle><Search className="inline h-5 w-5 mr-2" />Keyword Difficulty Estimator</CardTitle><CardDescription>Assess SEO keyword competition</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateKeywordDifficulty} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="competitorDA">Top Competitor Domain Authority</Label>
+                        <Input id="competitorDA" name="competitorDA" type="number" placeholder="65" required /></div>
+                      <div className="space-y-2"><Label htmlFor="competitorBacklinks">Competitor Backlinks</Label>
+                        <Input id="competitorBacklinks" name="competitorBacklinks" type="number" placeholder="500" required /></div>
+                      <div className="space-y-2"><Label htmlFor="searchVolume">Monthly Search Volume</Label>
+                        <Input id="searchVolume" name="searchVolume" type="number" placeholder="5000" required /></div>
+                      <Button type="submit">Estimate Difficulty</Button>
+                      {keywordDifficulty && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Difficulty Score: {keywordDifficulty.difficulty}/100</p>
+                          <p className="text-lg">Level: {keywordDifficulty.level}</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="serp-ctr">
+                <Card><CardHeader><CardTitle><ListChecks className="inline h-5 w-5 mr-2" />SERP Click Distribution</CardTitle><CardDescription>Estimate CTR by search position</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={calculateSerpClickDistribution} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="serpPosition">Your Current Position (1-20)</Label>
+                        <Input id="serpPosition" name="serpPosition" type="number" min="1" max="20" placeholder="5" required /></div>
+                      <Button type="submit">Estimate CTR</Button>
+                      {serpClickDistribution && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Position #{serpClickDistribution.position}</p>
+                          <p className="text-lg">Expected CTR: {serpClickDistribution.expectedCtr}%</p>
+                        </div>)}</form></CardContent></Card>
+              </TabsContent>
+
+              <TabsContent value="competitor-gap">
+                <Card><CardHeader><CardTitle><Target className="inline h-5 w-5 mr-2" />Competitor Gap Analyzer</CardTitle><CardDescription>Compare your traffic to competitors</CardDescription></CardHeader>
+                  <CardContent><form onSubmit={analyzeCompetitorGap} className="space-y-4">
+                      <div className="space-y-2"><Label htmlFor="yourTraffic">Your Monthly Traffic</Label>
+                        <Input id="yourTraffic" name="yourTraffic" type="number" placeholder="10000" required /></div>
+                      <div className="space-y-2"><Label htmlFor="competitorTraffic">Competitor Monthly Traffic</Label>
+                        <Input id="competitorTraffic" name="competitorTraffic" type="number" placeholder="50000" required /></div>
+                      <Button type="submit">Analyze Gap</Button>
+                      {competitorGap && (<div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                          <p className="text-lg font-semibold">Traffic Gap: {competitorGap.gap.toFixed(2)}%</p>
+                          <p className="font-semibold mt-2">Opportunities:</p>
+                          <ul className="mt-2 text-sm list-disc list-inside">{competitorGap.opportunities.map((opp, i) => <li key={i}>{opp}</li>)}</ul>
+                        </div>)}</form></CardContent></Card>
               </TabsContent>
             </Tabs>
           </div>
