@@ -1,0 +1,111 @@
+import { useEffect } from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import ServiceContactForm from '@/components/ServiceContactForm';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { CheckCircle, Store, TrendingUp, DollarSign } from 'lucide-react';
+import { setPageMeta } from '@/lib/seo';
+
+export default function DigitalMarketingSmallBusiness() {
+  useEffect(() => {
+    setPageMeta(
+      'Digital Marketing for Small Business - Affordable Growth Solutions',
+      'Affordable digital marketing services for small businesses. SEO, social media, PPC, and content marketing packages designed to maximize your budget and drive growth. Get results without breaking the bank.'
+    );
+  }, []);
+
+  const features = [
+    'Budget-friendly marketing packages',
+    'Local SEO optimization',
+    'Social media management',
+    'Google My Business setup',
+    'Small business PPC campaigns',
+    'Content marketing for local audience',
+    'Email marketing & automation',
+    'Monthly performance reports',
+  ];
+
+  const benefits = [
+    {
+      icon: DollarSign,
+      title: 'Affordable Pricing',
+      description: 'Marketing packages designed for small business budgets',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Proven Results',
+      description: 'Track record of helping small businesses grow online',
+    },
+    {
+      icon: Store,
+      title: 'Local Focus',
+      description: 'Strategies to dominate your local market',
+    },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1">
+        <section className="relative py-20 bg-gradient-to-b from-primary/10 to-background">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <Badge className="mb-4" data-testid="badge-service">Small Business Marketing</Badge>
+              <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <Store className="h-8 w-8 text-primary" />
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                Digital Marketing for Small Business
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Grow your small business with affordable, results-driven digital marketing
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-2">
+                <h2 className="text-3xl font-bold mb-6">Marketing That Fits Your Budget</h2>
+                <p className="text-lg text-muted-foreground mb-8">
+                  We understand the challenges small businesses face. Our digital marketing services are specifically designed 
+                  to deliver maximum results within your budget, helping you compete with larger competitors.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                  {benefits.map((benefit, index) => (
+                    <Card key={index} className="p-6 text-center" data-testid={`benefit-${index}`}>
+                      <benefit.icon className="h-12 w-12 text-primary mx-auto mb-4" />
+                      <h3 className="font-semibold mb-2">{benefit.title}</h3>
+                      <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    </Card>
+                  ))}
+                </div>
+
+                <h3 className="text-2xl font-bold mb-6">What's Included</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                  {features.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3" data-testid={`feature-${index}`}>
+                      <CheckCircle className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-1">
+                <div className="sticky top-6">
+                  <ServiceContactForm serviceName="Digital Marketing for Small Business" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+}

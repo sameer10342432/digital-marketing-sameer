@@ -54,6 +54,31 @@ import SEOCompanyUSA from "@/pages/services/SEOCompanyUSA";
 import DigitalMarketingAgencyUSA from "@/pages/services/DigitalMarketingAgencyUSA";
 import BestSEOAgency from "@/pages/services/BestSEOAgency";
 import PPCManagementServices from "@/pages/services/PPCManagementServices";
+import WebDevelopmentAgency from "@/pages/services/WebDevelopmentAgency";
+import DigitalMarketingSmallBusiness from "@/pages/services/DigitalMarketingSmallBusiness";
+import LocalDigitalMarketing from "@/pages/services/LocalDigitalMarketing";
+import SEOForStartups from "@/pages/services/SEOForStartups";
+import PPCForEcommerce from "@/pages/services/PPCForEcommerce";
+import BrandingAgency from "@/pages/services/BrandingAgency";
+import DigitalMarketingExpert from "@/pages/services/DigitalMarketingExpert";
+import SEOAuditServices from "@/pages/services/SEOAuditServices";
+import KeywordResearchServices from "@/pages/services/KeywordResearchServices";
+import BacklinkBuilding from "@/pages/services/BacklinkBuilding";
+import OnPageSEO from "@/pages/services/OnPageSEO";
+import OffPageSEO from "@/pages/services/OffPageSEO";
+import TechnicalSEO from "@/pages/services/TechnicalSEO";
+import GoogleMyBusinessOptimization from "@/pages/services/GoogleMyBusinessOptimization";
+import OnlineLeadGeneration from "@/pages/services/OnlineLeadGeneration";
+import DigitalMarketingPackages from "@/pages/services/DigitalMarketingPackages";
+import MonthlySEOServices from "@/pages/services/MonthlySEOServices";
+import PerformanceMarketing from "@/pages/services/PerformanceMarketing";
+import GrowthMarketingAgency from "@/pages/services/GrowthMarketingAgency";
+import SaaSMarketingAgency from "@/pages/services/SaaSMarketingAgency";
+import B2BDigitalMarketing from "@/pages/services/B2BDigitalMarketing";
+import B2CMarketingServices from "@/pages/services/B2CMarketingServices";
+import StartupMarketingAgency from "@/pages/services/StartupMarketingAgency";
+import EnterpriseSEOServices from "@/pages/services/EnterpriseSEOServices";
+import WhiteLabelSEO from "@/pages/services/WhiteLabelSEO";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -97,6 +122,31 @@ function Router() {
       <Route path="/services/digital-marketing-agency-usa" component={DigitalMarketingAgencyUSA} />
       <Route path="/services/best-seo-agency" component={BestSEOAgency} />
       <Route path="/services/ppc-management-services" component={PPCManagementServices} />
+      <Route path="/services/web-development-agency" component={WebDevelopmentAgency} />
+      <Route path="/services/digital-marketing-small-business" component={DigitalMarketingSmallBusiness} />
+      <Route path="/services/local-digital-marketing" component={LocalDigitalMarketing} />
+      <Route path="/services/seo-for-startups" component={SEOForStartups} />
+      <Route path="/services/ppc-for-ecommerce" component={PPCForEcommerce} />
+      <Route path="/services/branding-agency" component={BrandingAgency} />
+      <Route path="/services/digital-marketing-expert" component={DigitalMarketingExpert} />
+      <Route path="/services/seo-audit-services" component={SEOAuditServices} />
+      <Route path="/services/keyword-research-services" component={KeywordResearchServices} />
+      <Route path="/services/backlink-building" component={BacklinkBuilding} />
+      <Route path="/services/on-page-seo" component={OnPageSEO} />
+      <Route path="/services/off-page-seo" component={OffPageSEO} />
+      <Route path="/services/technical-seo" component={TechnicalSEO} />
+      <Route path="/services/google-my-business-optimization" component={GoogleMyBusinessOptimization} />
+      <Route path="/services/online-lead-generation" component={OnlineLeadGeneration} />
+      <Route path="/services/digital-marketing-packages" component={DigitalMarketingPackages} />
+      <Route path="/services/monthly-seo-services" component={MonthlySEOServices} />
+      <Route path="/services/performance-marketing" component={PerformanceMarketing} />
+      <Route path="/services/growth-marketing-agency" component={GrowthMarketingAgency} />
+      <Route path="/services/saas-marketing-agency" component={SaaSMarketingAgency} />
+      <Route path="/services/b2b-digital-marketing" component={B2BDigitalMarketing} />
+      <Route path="/services/b2c-marketing-services" component={B2CMarketingServices} />
+      <Route path="/services/startup-marketing-agency" component={StartupMarketingAgency} />
+      <Route path="/services/enterprise-seo-services" component={EnterpriseSEOServices} />
+      <Route path="/services/white-label-seo" component={WhiteLabelSEO} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />
