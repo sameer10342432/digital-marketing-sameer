@@ -27,7 +27,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
-import { Pencil, Trash2, Plus, X, LogOut } from 'lucide-react';
+import { Pencil, Trash2, Plus, X, LogOut, Upload, Image as ImageIcon } from 'lucide-react';
 import { insertServiceSchema, type Service, type InsertService } from '@shared/schema';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useAuth } from '@/lib/useAuth';
@@ -40,6 +40,8 @@ export default function AdminService() {
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [features, setFeatures] = useState<string>('');
+  const [uploading, setUploading] = useState(false);
+  const [iconUrl, setIconUrl] = useState<string>('');
 
   const { data: services, isLoading } = useQuery<Service[]>({
     queryKey: ['/api/services'],
@@ -52,6 +54,7 @@ export default function AdminService() {
       title: '',
       description: '',
       icon: '',
+      iconUrl: '',
       features: [],
       published: true,
     },
@@ -127,6 +130,41 @@ export default function AdminService() {
     },
   });
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setUploading(true);
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
+
+      if (!res.ok) throw new Error('Upload failed');
+
+      const data = await res.json();
+      setIconUrl(data.url);
+      form.setValue('iconUrl', data.url);
+      toast({
+        title: 'Success',
+        description: 'Image uploaded successfully',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to upload image',
+        variant: 'destructive',
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const onSubmit = (data: InsertService) => {
     const featuresArray = features
       .split(',')
@@ -135,6 +173,7 @@ export default function AdminService() {
     
     const cleanedData = {
       ...data,
+      iconUrl: iconUrl || data.iconUrl,
       features: featuresArray,
     };
     
@@ -147,14 +186,17 @@ export default function AdminService() {
 
   const handleEdit = (service: Service) => {
     setEditingService(service);
+    const featuresArray = Array.isArray(service.features) ? service.features : [];
     form.reset({
       title: service.title,
       description: service.description,
       icon: service.icon,
-      features: service.features || [],
+      iconUrl: service.iconUrl || '',
+      features: featuresArray,
       published: service.published,
     });
-    setFeatures(service.features?.join(', ') || '');
+    setFeatures(featuresArray.join(', '));
+    setIconUrl(service.iconUrl || '');
     setIsFormOpen(true);
   };
 
@@ -170,10 +212,12 @@ export default function AdminService() {
       title: '',
       description: '',
       icon: '',
+      iconUrl: '',
       features: [],
       published: true,
     });
     setFeatures('');
+    setIconUrl('');
     setIsFormOpen(true);
   };
 
@@ -181,6 +225,7 @@ export default function AdminService() {
     setEditingService(null);
     form.reset();
     setFeatures('');
+    setIconUrl('');
     setIsFormOpen(false);
   };
 
@@ -330,6 +375,43 @@ export default function AdminService() {
                       </FormItem>
                     )}
                   />
+
+                  <div>
+                    <label className="text-sm font-medium">Icon Image (Optional)</label>
+                    <div className="mt-2 space-y-4">
+                      <div className="flex items-center gap-4">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          disabled={uploading}
+                          data-testid="input-icon-image"
+                          className="flex-1"
+                        />
+                        {uploading && (
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Upload className="h-4 w-4 animate-spin" />
+                            Uploading...
+                          </div>
+                        )}
+                      </div>
+                      {iconUrl && (
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={iconUrl}
+                            alt="Service icon preview"
+                            className="h-16 w-16 object-cover rounded border"
+                          />
+                          <p className="text-sm text-muted-foreground">
+                            Image uploaded successfully
+                          </p>
+                        </div>
+                      )}
+                      <p className="text-sm text-muted-foreground">
+                        Upload a custom icon image (optional). If provided, this will be used instead of the Lucide icon.
+                      </p>
+                    </div>
+                  </div>
 
                   <div>
                     <label className="text-sm font-medium">Features</label>

@@ -61,8 +61,31 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
   };
 
   const insertHeading = (level: 1 | 2 | 3) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = value.substring(start, end);
     const hashes = '#'.repeat(level);
-    insertAtCursor(`\n${hashes} `, '\n');
+    
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+    const lineEnd = value.indexOf('\n', end);
+    const actualLineEnd = lineEnd === -1 ? value.length : lineEnd;
+    const currentLine = value.substring(lineStart, actualLineEnd);
+    
+    const trimmedLine = currentLine.replace(/^#+\s*/, '');
+    const newLine = `${hashes} ${trimmedLine || selectedText || 'Heading text'}`;
+    
+    const newText = value.substring(0, lineStart) + newLine + value.substring(actualLineEnd);
+    
+    onChange(newText);
+    
+    setTimeout(() => {
+      textarea.focus();
+      const newCursorPos = lineStart + newLine.length;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
   };
 
   const insertBold = () => {
@@ -228,8 +251,14 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
         />
       )}
 
-      <div className="text-xs text-muted-foreground">
-        Use Markdown formatting: # for H1, ## for H2, ### for H3, **bold**, *italic*, - lists
+      <div className="text-xs text-muted-foreground space-y-1">
+        <p className="font-medium">Tips for creating great blog content:</p>
+        <ul className="list-disc list-inside space-y-0.5">
+          <li>Click heading buttons to convert current line to headings (H1, H2, H3)</li>
+          <li>Select text and click Bold or Italic to format it</li>
+          <li>Use Preview button to see how your content will look</li>
+          <li>Markdown syntax: **bold**, *italic*, - lists, ![alt](url) for images</li>
+        </ul>
       </div>
     </div>
   );

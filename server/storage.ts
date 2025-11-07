@@ -147,7 +147,7 @@ export class DbStorage implements IStorage {
 
   async deleteService(id: number): Promise<boolean> {
     const result = await db.delete(services).where(eq(services.id, id));
-    return result.rowCount > 0;
+    return result.changes > 0;
   }
 
   async createSubscription(subscription: InsertSubscription): Promise<Subscription> {
@@ -183,7 +183,7 @@ export class DbStorage implements IStorage {
 
   async deleteContact(id: number): Promise<boolean> {
     const result = await db.delete(contacts).where(eq(contacts.id, id));
-    return result.rowCount > 0;
+    return result.changes > 0;
   }
 }
 
