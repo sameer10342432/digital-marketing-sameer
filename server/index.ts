@@ -37,7 +37,7 @@ app.use(cors({
 }));
 
 app.use(session({
-  secret: 'your-secret-key',
+  secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: process.env.NODE_ENV === 'production' }
