@@ -39,6 +39,13 @@ import EcommerceMarketing from "@/pages/services/EcommerceMarketing";
 import LinkBuilding from "@/pages/services/LinkBuilding";
 import InfluencerMarketing from "@/pages/services/InfluencerMarketing";
 import VideoMarketing from "@/pages/services/VideoMarketing";
+import InstagramMarketing from "@/pages/services/InstagramMarketing";
+import LinkedInAdvertising from "@/pages/services/LinkedInAdvertising";
+import YouTubeMarketing from "@/pages/services/YouTubeMarketing";
+import AffiliateMarketing from "@/pages/services/AffiliateMarketing";
+import WebsiteOptimization from "@/pages/services/WebsiteOptimization";
+import LandingPageDesign from "@/pages/services/LandingPageDesign";
+import OnlineReputationManagement from "@/pages/services/OnlineReputationManagement";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -67,6 +74,13 @@ function Router() {
       <Route path="/services/link-building" component={LinkBuilding} />
       <Route path="/services/influencer-marketing" component={InfluencerMarketing} />
       <Route path="/services/video-marketing" component={VideoMarketing} />
+      <Route path="/services/instagram-marketing" component={InstagramMarketing} />
+      <Route path="/services/linkedin-advertising" component={LinkedInAdvertising} />
+      <Route path="/services/youtube-marketing" component={YouTubeMarketing} />
+      <Route path="/services/affiliate-marketing" component={AffiliateMarketing} />
+      <Route path="/services/website-optimization" component={WebsiteOptimization} />
+      <Route path="/services/landing-page-design" component={LandingPageDesign} />
+      <Route path="/services/online-reputation-management" component={OnlineReputationManagement} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />

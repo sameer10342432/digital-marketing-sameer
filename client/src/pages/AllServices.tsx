@@ -22,7 +22,12 @@ import {
   Link as LinkIcon,
   Users,
   Video,
-  Facebook
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Zap,
+  Shield
 } from 'lucide-react';
 import { setPageMeta } from '@/lib/seo';
 
@@ -186,6 +191,62 @@ export default function AllServices() {
       link: '/services/online-marketing-agency',
       color: 'text-teal-500',
       bgColor: 'bg-teal-500/10',
+    },
+    {
+      title: 'Instagram Marketing',
+      description: 'Build a powerful Instagram presence that drives engagement and business growth. Content strategy, Stories, Reels, influencer partnerships, and Instagram Shopping optimization.',
+      icon: Instagram,
+      link: '/services/instagram-marketing',
+      color: 'text-pink-600',
+      bgColor: 'bg-pink-600/10',
+    },
+    {
+      title: 'LinkedIn Advertising',
+      description: 'Reach decision-makers and generate high-quality B2B leads with LinkedIn ads. Sponsored content, InMail campaigns, and account-based marketing for professional audiences.',
+      icon: Linkedin,
+      link: '/services/linkedin-advertising',
+      color: 'text-blue-700',
+      bgColor: 'bg-blue-700/10',
+    },
+    {
+      title: 'YouTube Marketing',
+      description: 'Grow your YouTube channel and reach millions with strategic video marketing. Channel optimization, video SEO, YouTube ads, and content strategy for maximum views.',
+      icon: Youtube,
+      link: '/services/youtube-marketing',
+      color: 'text-red-700',
+      bgColor: 'bg-red-700/10',
+    },
+    {
+      title: 'Affiliate Marketing',
+      description: 'Build and scale a profitable affiliate program that drives consistent revenue. Partner recruitment, commission structures, tracking systems, and performance optimization.',
+      icon: Users,
+      link: '/services/affiliate-marketing',
+      color: 'text-emerald-600',
+      bgColor: 'bg-emerald-600/10',
+    },
+    {
+      title: 'Website Optimization',
+      description: 'Boost website speed, performance, and search rankings with expert optimization. Page speed improvements, mobile responsiveness, Core Web Vitals, and technical SEO.',
+      icon: Zap,
+      link: '/services/website-optimization',
+      color: 'text-yellow-600',
+      bgColor: 'bg-yellow-600/10',
+    },
+    {
+      title: 'Landing Page Design',
+      description: 'Convert more visitors into customers with high-performing landing pages. Conversion-focused design, compelling copy, A/B testing, and mobile optimization for maximum ROI.',
+      icon: FileText,
+      link: '/services/landing-page-design',
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-600/10',
+    },
+    {
+      title: 'Online Reputation Management',
+      description: 'Protect and enhance your brand\'s online reputation. Review management, negative content suppression, brand monitoring, and positive content promotion for businesses.',
+      icon: Shield,
+      link: '/services/online-reputation-management',
+      color: 'text-slate-600',
+      bgColor: 'bg-slate-600/10',
     },
   ];
 
