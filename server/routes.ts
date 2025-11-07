@@ -2,7 +2,7 @@ import type { Express } from "express";
 import express, { type Request, type Response, type NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema } from "@shared/schema";
+import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema, insertContactSchema } from "@shared/schema";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -403,6 +403,74 @@ export async function registerRoutes(app: Express) {
       res.json(subscriptions);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch subscriptions" });
+    }
+  });
+
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const validatedData = insertContactSchema.parse(req.body);
+      const contact = await storage.createContact(validatedData);
+      
+      console.log(`📬 New contact form submission:`);
+      console.log(`   Name: ${contact.name}`);
+      console.log(`   Email: ${contact.email}`);
+      console.log(`   Service: ${contact.service || 'Not specified'}`);
+      console.log(`   Message: ${contact.message}`);
+      
+      res.json({ 
+        message: "Message sent successfully",
+        contact: {
+          id: contact.id,
+          name: contact.name,
+          email: contact.email
+        }
+      });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ message: "Invalid form data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to send message" });
+    }
+  });
+
+  app.get("/api/contacts", requireAuth, async (req, res) => {
+    try {
+      const contacts = await storage.getAllContacts();
+      res.json(contacts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch contacts" });
+    }
+  });
+
+  app.patch("/api/contacts/:id/status", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      const contact = await storage.updateContactStatus(id, status);
+      
+      if (!contact) {
+        return res.status(404).json({ message: "Contact not found" });
+      }
+      
+      res.json(contact);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update contact status" });
+    }
+  });
+
+  app.delete("/api/contacts/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const deleted = await storage.deleteContact(id);
+      
+      if (!deleted) {
+        return res.status(404).json({ message: "Contact not found" });
+      }
+      
+      res.json({ message: "Contact deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete contact" });
     }
   });
 

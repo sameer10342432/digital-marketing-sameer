@@ -110,3 +110,23 @@ export const insertSubscriptionSchema = z.object({
 
 export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
 export type Subscription = typeof subscriptions.$inferSelect;
+
+export const contacts = sqliteTable("contacts", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    service: text("service"),
+    message: text("message").notNull(),
+    status: text("status").notNull().default("unread"),
+    createdAt: integer("created_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+});
+
+export const insertContactSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    service: z.string().optional(),
+    message: z.string().min(1, "Message is required"),
+});
+
+export type InsertContact = z.infer<typeof insertContactSchema>;
+export type Contact = typeof contacts.$inferSelect;

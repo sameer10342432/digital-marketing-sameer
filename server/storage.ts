@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Blog, type InsertBlog, type Portfolio, type InsertPortfolio, type Service, type InsertService, type Subscription, type InsertSubscription, users, blogs, portfolios, services, subscriptions } from "@shared/schema";
+import { type User, type InsertUser, type Blog, type InsertBlog, type Portfolio, type InsertPortfolio, type Service, type InsertService, type Subscription, type InsertSubscription, type Contact, type InsertContact, users, blogs, portfolios, services, subscriptions, contacts } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
@@ -32,6 +32,12 @@ export interface IStorage {
   createSubscription(subscription: InsertSubscription): Promise<Subscription>;
   getSubscriptionByEmail(email: string): Promise<Subscription | undefined>;
   getAllSubscriptions(): Promise<Subscription[]>;
+
+  createContact(contact: InsertContact): Promise<Contact>;
+  getAllContacts(): Promise<Contact[]>;
+  getContactById(id: number): Promise<Contact | undefined>;
+  updateContactStatus(id: number, status: string): Promise<Contact | undefined>;
+  deleteContact(id: number): Promise<boolean>;
 }
 
 export class DbStorage implements IStorage {
@@ -99,21 +105,44 @@ export class DbStorage implements IStorage {
   }
 
   async getAllServices(): Promise<Service[]> {
-    return db.query.services.findMany({ orderBy: [desc(services.createdAt)] });
+    const allServices = await db.query.services.findMany({ orderBy: [desc(services.createdAt)] });
+    return allServices.map(service => ({
+      ...service,
+      features: JSON.parse(service.features || '[]')
+    })) as Service[];
   }
 
   async getServiceById(id: number): Promise<Service | undefined> {
-    return db.query.services.findFirst({ where: eq(services.id, id) });
+    const service = await db.query.services.findFirst({ where: eq(services.id, id) });
+    if (!service) return undefined;
+    return {
+      ...service,
+      features: JSON.parse(service.features || '[]')
+    } as Service;
   }
 
   async createService(service: InsertService): Promise<Service> {
-    const [newService] = await db.insert(services).values(service).returning();
-    return newService;
+    const serviceData = {
+      ...service,
+      features: JSON.stringify(service.features || [])
+    };
+    const [newService] = await db.insert(services).values(serviceData as any).returning();
+    return {
+      ...newService,
+      features: JSON.parse(newService.features || '[]')
+    } as Service;
   }
 
   async updateService(id: number, service: Partial<InsertService>): Promise<Service | undefined> {
-    const [updatedService] = await db.update(services).set(service).where(eq(services.id, id)).returning();
-    return updatedService;
+    const serviceData = service.features
+      ? { ...service, features: JSON.stringify(service.features) }
+      : service;
+    const [updatedService] = await db.update(services).set(serviceData as any).where(eq(services.id, id)).returning();
+    if (!updatedService) return undefined;
+    return {
+      ...updatedService,
+      features: JSON.parse(updatedService.features || '[]')
+    } as Service;
   }
 
   async deleteService(id: number): Promise<boolean> {
@@ -132,6 +161,29 @@ export class DbStorage implements IStorage {
 
   async getAllSubscriptions(): Promise<Subscription[]> {
     return db.query.subscriptions.findMany({ orderBy: [desc(subscriptions.createdAt)] });
+  }
+
+  async createContact(contact: InsertContact): Promise<Contact> {
+    const [newContact] = await db.insert(contacts).values(contact).returning();
+    return newContact;
+  }
+
+  async getAllContacts(): Promise<Contact[]> {
+    return db.query.contacts.findMany({ orderBy: [desc(contacts.createdAt)] });
+  }
+
+  async getContactById(id: number): Promise<Contact | undefined> {
+    return db.query.contacts.findFirst({ where: eq(contacts.id, id) });
+  }
+
+  async updateContactStatus(id: number, status: string): Promise<Contact | undefined> {
+    const [updatedContact] = await db.update(contacts).set({ status }).where(eq(contacts.id, id)).returning();
+    return updatedContact;
+  }
+
+  async deleteContact(id: number): Promise<boolean> {
+    const result = await db.delete(contacts).where(eq(contacts.id, id));
+    return result.rowCount > 0;
   }
 }
 
