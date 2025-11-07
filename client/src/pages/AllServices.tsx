@@ -27,7 +27,11 @@ import {
   Linkedin,
   Youtube,
   Zap,
-  Shield
+  Shield,
+  Smartphone,
+  RefreshCcw,
+  Layers,
+  Award
 } from 'lucide-react';
 import { setPageMeta } from '@/lib/seo';
 
@@ -247,6 +251,70 @@ export default function AllServices() {
       link: '/services/online-reputation-management',
       color: 'text-slate-600',
       bgColor: 'bg-slate-600/10',
+    },
+    {
+      title: 'Mobile Marketing',
+      description: 'Reach your audience on mobile devices with SMS campaigns, mobile app marketing, in-app advertising, and mobile-optimized strategies for maximum engagement.',
+      icon: Smartphone,
+      link: '/services/mobile-marketing',
+      color: 'text-indigo-600',
+      bgColor: 'bg-indigo-600/10',
+    },
+    {
+      title: 'Remarketing Campaigns',
+      description: 'Re-engage interested visitors and convert them into customers with strategic remarketing across Google, Facebook, and display networks.',
+      icon: RefreshCcw,
+      link: '/services/remarketing-campaigns',
+      color: 'text-violet-600',
+      bgColor: 'bg-violet-600/10',
+    },
+    {
+      title: 'Digital Advertising Agency',
+      description: 'Full-service digital advertising agency specializing in multi-channel paid media campaigns. Google Ads, social media advertising, display, and programmatic buying.',
+      icon: Megaphone,
+      link: '/services/digital-advertising-agency',
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-600/10',
+    },
+    {
+      title: 'Full Service Digital Agency',
+      description: 'Complete digital marketing solutions - SEO, PPC, social media, content, web design, and analytics. Your comprehensive digital marketing partner.',
+      icon: Layers,
+      link: '/services/full-service-digital-agency',
+      color: 'text-blue-800',
+      bgColor: 'bg-blue-800/10',
+    },
+    {
+      title: 'SEO Company USA',
+      description: 'Leading US-based SEO company with proven results. Professional search engine optimization services for American businesses with local market expertise.',
+      icon: MapPin,
+      link: '/services/seo-company-usa',
+      color: 'text-green-700',
+      bgColor: 'bg-green-700/10',
+    },
+    {
+      title: 'Digital Marketing Agency USA',
+      description: 'Top-rated US digital marketing agency serving businesses across America. Full-service marketing solutions with US-based experts delivering proven results.',
+      icon: Sparkles,
+      link: '/services/digital-marketing-agency-usa',
+      color: 'text-purple-700',
+      bgColor: 'bg-purple-700/10',
+    },
+    {
+      title: 'Best SEO Agency',
+      description: 'Award-winning SEO agency with exceptional results and track record. Expert strategies, transparent reporting, and relentless focus on ROI.',
+      icon: Award,
+      link: '/services/best-seo-agency',
+      color: 'text-amber-600',
+      bgColor: 'bg-amber-600/10',
+    },
+    {
+      title: 'PPC Management Services',
+      description: 'Expert PPC management for Google Ads, Microsoft Ads, and social platforms. Professional campaign optimization and ROI-focused strategies.',
+      icon: DollarSign,
+      link: '/services/ppc-management-services',
+      color: 'text-lime-600',
+      bgColor: 'bg-lime-600/10',
     },
   ];
 

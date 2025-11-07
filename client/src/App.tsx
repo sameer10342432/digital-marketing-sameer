@@ -46,6 +46,14 @@ import AffiliateMarketing from "@/pages/services/AffiliateMarketing";
 import WebsiteOptimization from "@/pages/services/WebsiteOptimization";
 import LandingPageDesign from "@/pages/services/LandingPageDesign";
 import OnlineReputationManagement from "@/pages/services/OnlineReputationManagement";
+import MobileMarketing from "@/pages/services/MobileMarketing";
+import RemarketingCampaigns from "@/pages/services/RemarketingCampaigns";
+import DigitalAdvertisingAgency from "@/pages/services/DigitalAdvertisingAgency";
+import FullServiceDigitalAgency from "@/pages/services/FullServiceDigitalAgency";
+import SEOCompanyUSA from "@/pages/services/SEOCompanyUSA";
+import DigitalMarketingAgencyUSA from "@/pages/services/DigitalMarketingAgencyUSA";
+import BestSEOAgency from "@/pages/services/BestSEOAgency";
+import PPCManagementServices from "@/pages/services/PPCManagementServices";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -81,6 +89,14 @@ function Router() {
       <Route path="/services/website-optimization" component={WebsiteOptimization} />
       <Route path="/services/landing-page-design" component={LandingPageDesign} />
       <Route path="/services/online-reputation-management" component={OnlineReputationManagement} />
+      <Route path="/services/mobile-marketing" component={MobileMarketing} />
+      <Route path="/services/remarketing-campaigns" component={RemarketingCampaigns} />
+      <Route path="/services/digital-advertising-agency" component={DigitalAdvertisingAgency} />
+      <Route path="/services/full-service-digital-agency" component={FullServiceDigitalAgency} />
+      <Route path="/services/seo-company-usa" component={SEOCompanyUSA} />
+      <Route path="/services/digital-marketing-agency-usa" component={DigitalMarketingAgencyUSA} />
+      <Route path="/services/best-seo-agency" component={BestSEOAgency} />
+      <Route path="/services/ppc-management-services" component={PPCManagementServices} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />
