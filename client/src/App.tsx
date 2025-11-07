@@ -31,6 +31,14 @@ import SEOServices from "@/pages/services/SEOServices";
 import WebDesignServices from "@/pages/services/WebDesignServices";
 import SearchEngineMarketing from "@/pages/services/SearchEngineMarketing";
 import OnlineMarketingAgency from "@/pages/services/OnlineMarketingAgency";
+import GoogleAdsManagement from "@/pages/services/GoogleAdsManagement";
+import FacebookAdvertising from "@/pages/services/FacebookAdvertising";
+import LocalSEO from "@/pages/services/LocalSEO";
+import ConversionOptimization from "@/pages/services/ConversionOptimization";
+import EcommerceMarketing from "@/pages/services/EcommerceMarketing";
+import LinkBuilding from "@/pages/services/LinkBuilding";
+import InfluencerMarketing from "@/pages/services/InfluencerMarketing";
+import VideoMarketing from "@/pages/services/VideoMarketing";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -51,6 +59,14 @@ function Router() {
       <Route path="/services/web-design-services" component={WebDesignServices} />
       <Route path="/services/search-engine-marketing" component={SearchEngineMarketing} />
       <Route path="/services/online-marketing-agency" component={OnlineMarketingAgency} />
+      <Route path="/services/google-ads-management" component={GoogleAdsManagement} />
+      <Route path="/services/facebook-advertising" component={FacebookAdvertising} />
+      <Route path="/services/local-seo" component={LocalSEO} />
+      <Route path="/services/conversion-optimization" component={ConversionOptimization} />
+      <Route path="/services/ecommerce-marketing" component={EcommerceMarketing} />
+      <Route path="/services/link-building" component={LinkBuilding} />
+      <Route path="/services/influencer-marketing" component={InfluencerMarketing} />
+      <Route path="/services/video-marketing" component={VideoMarketing} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />
