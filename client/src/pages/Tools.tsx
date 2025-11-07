@@ -894,7 +894,8 @@ export default function Tools() {
     const monthlyVisitors = parseFloat(formData.get('seoVisitors') as string);
     const avgCpc = parseFloat(formData.get('avgCpc') as string);
     
-    if (!monthlyVisitors || !avgCpc) {
+    if (!Number.isFinite(monthlyVisitors) || !Number.isFinite(avgCpc) || 
+        monthlyVisitors < 0 || avgCpc < 0) {
       setSeoTrafficValue(null);
       return;
     }
@@ -911,6 +912,11 @@ export default function Tools() {
     const domainRating = parseFloat(formData.get('domainRating') as string);
     const dofollow = formData.get('dofollow') === 'true';
     const relevantNiche = formData.get('relevantNiche') === 'true';
+    
+    if (!Number.isFinite(domainRating) || domainRating < 0 || domainRating > 100) {
+      setBacklinkQuality(null);
+      return;
+    }
     
     let score = 0;
     
@@ -948,6 +954,12 @@ export default function Tools() {
     const referringDomains = parseFloat(formData.get('referringDomains') as string);
     const domainAge = parseFloat(formData.get('domainAge') as string);
     
+    if (!Number.isFinite(backlinks) || !Number.isFinite(referringDomains) || 
+        !Number.isFinite(domainAge) || backlinks < 0 || referringDomains < 0 || domainAge < 0) {
+      setDomainAuthority(null);
+      return;
+    }
+    
     let score = 0;
     
     if (backlinks >= 10000) score += 35;
@@ -978,9 +990,11 @@ export default function Tools() {
     const formData = new FormData(e.currentTarget);
     const currentFollowers = parseFloat(formData.get('currentFollowers') as string);
     const newFollowers = parseFloat(formData.get('newFollowersMonth') as string);
-    const months = parseFloat(formData.get('projectionMonths') as string) || 6;
+    const monthsInput = formData.get('projectionMonths') as string;
+    const months = monthsInput ? parseFloat(monthsInput) : 6;
     
-    if (!currentFollowers) {
+    if (!Number.isFinite(currentFollowers) || !Number.isFinite(newFollowers) || !Number.isFinite(months) ||
+        currentFollowers <= 0 || newFollowers < 0 || months <= 0) {
       setSocialGrowthRate(null);
       return;
     }
@@ -996,6 +1010,12 @@ export default function Tools() {
     const formData = new FormData(e.currentTarget);
     const invitesSent = parseFloat(formData.get('invitesSent') as string);
     const conversionRate = parseFloat(formData.get('inviteConversion') as string);
+    
+    if (!Number.isFinite(invitesSent) || !Number.isFinite(conversionRate) || 
+        invitesSent < 0 || conversionRate < 0 || conversionRate > 100) {
+      setViralCoefficient(null);
+      return;
+    }
     
     const coefficient = (invitesSent * (conversionRate / 100));
     
@@ -1076,7 +1096,8 @@ export default function Tools() {
     const impressions = parseFloat(formData.get('impressions') as string);
     const eligibleImpressions = parseFloat(formData.get('eligibleImpressions') as string);
     
-    if (!eligibleImpressions || eligibleImpressions === 0) {
+    if (!Number.isFinite(impressions) || !Number.isFinite(eligibleImpressions) || 
+        eligibleImpressions <= 0 || impressions < 0 || impressions > eligibleImpressions) {
       setImpressionShare(null);
       return;
     }
@@ -1093,6 +1114,12 @@ export default function Tools() {
     const ctr = parseFloat(formData.get('adCtr') as string);
     const relevance = parseFloat(formData.get('adRelevance') as string);
     const landingExperience = parseFloat(formData.get('landingExperience') as string);
+    
+    if (!Number.isFinite(ctr) || !Number.isFinite(relevance) || !Number.isFinite(landingExperience) ||
+        ctr < 1 || ctr > 10 || relevance < 1 || relevance > 10 || landingExperience < 1 || landingExperience > 10) {
+      setGoogleAdsQuality(null);
+      return;
+    }
     
     const score = Math.round((ctr + relevance + landingExperience) / 3);
     
@@ -1120,6 +1147,12 @@ export default function Tools() {
     const formData = new FormData(e.currentTarget);
     const engagementRate = parseFloat(formData.get('fbEngagementRate') as string);
     const conversionRate = parseFloat(formData.get('fbConversionRate') as string);
+    
+    if (!Number.isFinite(engagementRate) || !Number.isFinite(conversionRate) ||
+        engagementRate < 1 || engagementRate > 10 || conversionRate < 1 || conversionRate > 10) {
+      setFbAdRelevance(null);
+      return;
+    }
     
     const score = Math.round(engagementRate * 3 + conversionRate * 7);
     
@@ -1198,7 +1231,7 @@ export default function Tools() {
     const views = parseFloat(formData.get('youtubeViews') as string);
     const cpm = parseFloat(formData.get('estimatedCpm') as string);
     
-    if (!views) {
+    if (!Number.isFinite(views) || !Number.isFinite(cpm) || views < 0 || cpm < 0) {
       setYoutubeCpm(null);
       return;
     }
@@ -1233,7 +1266,8 @@ export default function Tools() {
     const impressions = parseFloat(formData.get('pinterestImpressions') as string);
     const saves = parseFloat(formData.get('pinterestSaves') as string);
     
-    if (!impressions || impressions === 0) {
+    if (!Number.isFinite(impressions) || !Number.isFinite(saves) || 
+        impressions <= 0 || saves < 0 || saves > impressions) {
       setPinterestPerformance(null);
       return;
     }
@@ -1250,6 +1284,12 @@ export default function Tools() {
     const bounceRate = parseFloat(formData.get('bounceRate') as string);
     const spamRate = parseFloat(formData.get('spamRate') as string);
     const openRate = parseFloat(formData.get('emailOpenRate') as string);
+    
+    if (!Number.isFinite(bounceRate) || !Number.isFinite(spamRate) || !Number.isFinite(openRate) ||
+        bounceRate < 0 || bounceRate > 100 || spamRate < 0 || spamRate > 100 || openRate < 0 || openRate > 100) {
+      setEmailDeliverability(null);
+      return;
+    }
     
     let score = 100;
     score -= bounceRate * 5;
@@ -1274,7 +1314,8 @@ export default function Tools() {
     const cartsCompleted = parseFloat(formData.get('cartsCompleted') as string);
     const avgCartValue = parseFloat(formData.get('avgCartValue') as string);
     
-    if (!cartsCreated || cartsCreated === 0) {
+    if (!Number.isFinite(cartsCreated) || !Number.isFinite(cartsCompleted) || !Number.isFinite(avgCartValue) ||
+        cartsCreated <= 0 || cartsCompleted < 0 || cartsCompleted > cartsCreated || avgCartValue < 0) {
       setCartAbandonment(null);
       return;
     }
@@ -1292,6 +1333,12 @@ export default function Tools() {
     const commissionRate = parseFloat(formData.get('commissionRate') as string);
     const adSpend = parseFloat(formData.get('affiliateAdSpend') as string) || 0;
     
+    if (!Number.isFinite(sales) || !Number.isFinite(commissionRate) || 
+        sales < 0 || commissionRate < 0 || commissionRate > 100 || adSpend < 0) {
+      setAffiliateCommission(null);
+      return;
+    }
+    
     const commission = sales * (commissionRate / 100);
     const roi = adSpend > 0 ? ((commission - adSpend) / adSpend) * 100 : 0;
     
@@ -1306,9 +1353,16 @@ export default function Tools() {
     const revenue = parseFloat(formData.get('podcastRevenue') as string);
     const listeners = parseFloat(formData.get('listeners') as string);
     
+    if (!Number.isFinite(productionCost) || !Number.isFinite(promotionCost) || 
+        !Number.isFinite(revenue) || !Number.isFinite(listeners) ||
+        productionCost < 0 || promotionCost < 0 || revenue < 0 || listeners < 0) {
+      setPodcastRoi(null);
+      return;
+    }
+    
     const totalCost = productionCost + promotionCost;
     
-    if (!totalCost || totalCost === 0) {
+    if (totalCost === 0) {
       setPodcastRoi(null);
       return;
     }
@@ -1325,6 +1379,12 @@ export default function Tools() {
     const pageviews = parseFloat(formData.get('blogPageviews') as string);
     const avgTimeOnPage = parseFloat(formData.get('avgTimeOnPage') as string);
     const shareRate = parseFloat(formData.get('shareRate') as string);
+    
+    if (!Number.isFinite(pageviews) || !Number.isFinite(avgTimeOnPage) || !Number.isFinite(shareRate) ||
+        pageviews < 0 || avgTimeOnPage < 0 || shareRate < 0 || shareRate > 100) {
+      setBlogPerformance(null);
+      return;
+    }
     
     let score = 0;
     const recommendations: string[] = [];
@@ -1361,6 +1421,12 @@ export default function Tools() {
     const backlinks = parseFloat(formData.get('competitorBacklinks') as string);
     const searchVolume = parseFloat(formData.get('searchVolume') as string);
     
+    if (!Number.isFinite(domainAuthority) || !Number.isFinite(backlinks) || !Number.isFinite(searchVolume) ||
+        domainAuthority < 0 || domainAuthority > 100 || backlinks < 0 || searchVolume < 0) {
+      setKeywordDifficulty(null);
+      return;
+    }
+    
     let difficulty = 0;
     
     if (domainAuthority >= 70) difficulty += 40;
@@ -1390,6 +1456,11 @@ export default function Tools() {
     const formData = new FormData(e.currentTarget);
     const position = parseFloat(formData.get('serpPosition') as string);
     
+    if (!Number.isFinite(position) || position < 1 || position > 20) {
+      setSerpClickDistribution(null);
+      return;
+    }
+    
     const ctrMap: Record<number, number> = {
       1: 31.7, 2: 24.7, 3: 18.7, 4: 13.6, 5: 9.5,
       6: 6.3, 7: 4.5, 8: 3.1, 9: 2.2, 10: 1.6
@@ -1406,7 +1477,8 @@ export default function Tools() {
     const yourTraffic = parseFloat(formData.get('yourTraffic') as string);
     const competitorTraffic = parseFloat(formData.get('competitorTraffic') as string);
     
-    if (!yourTraffic || !competitorTraffic) {
+    if (!Number.isFinite(yourTraffic) || !Number.isFinite(competitorTraffic) ||
+        yourTraffic < 0 || competitorTraffic <= 0) {
       setCompetitorGap(null);
       return;
     }
