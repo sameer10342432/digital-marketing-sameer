@@ -16,6 +16,15 @@ The project was successfully migrated from Vercel to Replit with the following u
 - ✅ Development workflow configured for automatic startup
 - ✅ Deployment configuration set for autoscale deployment
 
+### Bug Fixes and Improvements (November 7, 2025)
+- ✅ Fixed portfolio and blog deletion errors (SQLite `.changes` vs `.rowCount`)
+- ✅ Added image upload functionality for service icons
+- ✅ Improved blog Rich Text Editor with better heading functionality
+- ✅ Fixed portfolio schema: added `technologies` field and `projectUrl` for consistency
+- ✅ Portfolio links now display correctly on portfolio page
+- ✅ Portfolio detail pages created - clicking portfolios shows full content
+- ✅ Updated CaseStudy component to display real portfolio data from database
+
 ## Environment Variables Required
 
 ### Required in Production
