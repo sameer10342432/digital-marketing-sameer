@@ -2,7 +2,7 @@ import type { Express } from "express";
 import express, { type Request, type Response, type NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema, insertContactSchema } from "@shared/schema";
+import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema, insertContactSchema, insertPageSchema } from "@shared/schema";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -471,6 +471,91 @@ export async function registerRoutes(app: Express) {
       res.json({ message: "Contact deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete contact" });
+    }
+  });
+
+  app.get("/api/pages", requireAuth, async (req, res) => {
+    try {
+      const pages = await storage.getAllPages();
+      res.json(pages);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch pages" });
+    }
+  });
+
+  app.get("/api/pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const page = await storage.getPageById(id);
+      
+      if (!page) {
+        return res.status(404).json({ message: "Page not found" });
+      }
+      
+      res.json(page);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch page" });
+    }
+  });
+
+  app.get("/api/pages/slug/:slug", requireAuth, async (req, res) => {
+    try {
+      const page = await storage.getPageBySlug(req.params.slug);
+      
+      if (!page) {
+        return res.status(404).json({ message: "Page not found" });
+      }
+      
+      res.json(page);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch page" });
+    }
+  });
+
+  app.post("/api/pages", requireAuth, async (req, res) => {
+    try {
+      const validatedData = insertPageSchema.parse(req.body);
+      const page = await storage.createPage(validatedData);
+      res.status(201).json(page);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ message: "Invalid page data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create page" });
+    }
+  });
+
+  app.put("/api/pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validatedData = insertPageSchema.partial().parse(req.body);
+      const page = await storage.updatePage(id, validatedData);
+      
+      if (!page) {
+        return res.status(404).json({ message: "Page not found" });
+      }
+      
+      res.json(page);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ message: "Invalid page data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update page" });
+    }
+  });
+
+  app.delete("/api/pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const deleted = await storage.deletePage(id);
+      
+      if (!deleted) {
+        return res.status(404).json({ message: "Page not found" });
+      }
+      
+      res.json({ message: "Page deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete page" });
     }
   });
 

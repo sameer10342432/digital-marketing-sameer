@@ -20,6 +20,7 @@ import AdminPortfolio from "@/pages/AdminPortfolio";
 import AdminService from "@/pages/AdminService";
 import AdminContacts from "@/pages/AdminContacts";
 import AdminSubscriptions from "@/pages/AdminSubscriptions";
+import AdminPages from "@/pages/AdminPages";
 import SEOOptimization from "@/pages/services/SEOOptimization";
 import PPCCampaigns from "@/pages/services/PPCCampaigns";
 import SocialMediaMarketing from "@/pages/services/SocialMediaMarketing";
@@ -213,6 +214,7 @@ function Router() {
       <Route path="/admin/services" component={AdminService} />
       <Route path="/admin/contacts" component={AdminContacts} />
       <Route path="/admin/subscriptions" component={AdminSubscriptions} />
+      <Route path="/admin/pages" component={AdminPages} />
       <Route component={NotFound} />
     </Switch>
   );

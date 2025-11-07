@@ -243,6 +243,11 @@ export default function Admin() {
                   Manage Blogs
                 </Button>
               </Link>
+              <Link href="/admin/pages">
+                <Button variant="outline" data-testid="button-nav-pages">
+                  Manage Pages
+                </Button>
+              </Link>
               <Link href="/admin/portfolios">
                 <Button variant="outline" data-testid="button-nav-portfolios">
                   Manage Portfolios

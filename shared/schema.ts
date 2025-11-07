@@ -134,3 +134,39 @@ export const insertContactSchema = z.object({
 
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
+
+export const pages = sqliteTable("pages", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  content: text("content").notNull(),
+  excerpt: text("excerpt"),
+  featuredImageUrl: text("featured_image_url"),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  status: text("status").notNull().default("draft"),
+  author: text("author").notNull().default("Muhammad Sameer"),
+  parentId: integer("parent_id"),
+  template: text("template").default("default"),
+  order: integer("order").default(0),
+  createdAt: integer("created_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+});
+
+export const insertPageSchema = createInsertSchema(pages, {
+  title: z.string().min(1, "Title is required"),
+  slug: z.string().min(1, "Slug is required"),
+  content: z.string().min(1, "Content is required"),
+  excerpt: z.string().optional(),
+  featuredImageUrl: z.string().optional(),
+  metaTitle: z.string().optional(),
+  metaDescription: z.string().optional(),
+  status: z.enum(["draft", "published", "private"]).default("draft"),
+  author: z.string().default("Muhammad Sameer"),
+  parentId: z.number().optional(),
+  template: z.string().default("default"),
+  order: z.number().default(0),
+});
+
+export type InsertPage = z.infer<typeof insertPageSchema>;
+export type Page = typeof pages.$inferSelect;
