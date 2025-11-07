@@ -79,6 +79,33 @@ import B2CMarketingServices from "@/pages/services/B2CMarketingServices";
 import StartupMarketingAgency from "@/pages/services/StartupMarketingAgency";
 import EnterpriseSEOServices from "@/pages/services/EnterpriseSEOServices";
 import WhiteLabelSEO from "@/pages/services/WhiteLabelSEO";
+import SEOResellerServices from "@/pages/services/SEOResellerServices";
+import DigitalPRAgency from "@/pages/services/DigitalPRAgency";
+import OnlineBrandManagement from "@/pages/services/OnlineBrandManagement";
+import OrganicTrafficGrowth from "@/pages/services/OrganicTrafficGrowth";
+import WebsiteTrafficServices from "@/pages/services/WebsiteTrafficServices";
+import MarketingAutomation from "@/pages/services/MarketingAutomation";
+import CRMIntegrationServices from "@/pages/services/CRMIntegrationServices";
+import FunnelOptimization from "@/pages/services/FunnelOptimization";
+import DigitalMarketingRealEstate from "@/pages/services/DigitalMarketingRealEstate";
+import HealthcareDigitalMarketing from "@/pages/services/HealthcareDigitalMarketing";
+import FintechMarketingAgency from "@/pages/services/FintechMarketingAgency";
+import EcommerceSEOServices from "@/pages/services/EcommerceSEOServices";
+import ShopifyMarketing from "@/pages/services/ShopifyMarketing";
+import AmazonAdvertising from "@/pages/services/AmazonAdvertising";
+import DigitalMarketingNonprofits from "@/pages/services/DigitalMarketingNonprofits";
+import LawFirmSEO from "@/pages/services/LawFirmSEO";
+import RestaurantMarketingOnline from "@/pages/services/RestaurantMarketingOnline";
+import LocalBusinessMarketing from "@/pages/services/LocalBusinessMarketing";
+import SEOForDentists from "@/pages/services/SEOForDentists";
+import DigitalMarketingCoaches from "@/pages/services/DigitalMarketingCoaches";
+import OnlineCourseMarketing from "@/pages/services/OnlineCourseMarketing";
+import MembershipSiteMarketing from "@/pages/services/MembershipSiteMarketing";
+import PodcastPromotionServices from "@/pages/services/PodcastPromotionServices";
+import WebinarMarketing from "@/pages/services/WebinarMarketing";
+import LeadMagnetCreation from "@/pages/services/LeadMagnetCreation";
+import SalesFunnelDesign from "@/pages/services/SalesFunnelDesign";
+import DigitalMarketingAgencyNearMe from "@/pages/services/DigitalMarketingAgencyNearMe";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -147,6 +174,33 @@ function Router() {
       <Route path="/services/startup-marketing-agency" component={StartupMarketingAgency} />
       <Route path="/services/enterprise-seo-services" component={EnterpriseSEOServices} />
       <Route path="/services/white-label-seo" component={WhiteLabelSEO} />
+      <Route path="/services/seo-reseller-services" component={SEOResellerServices} />
+      <Route path="/services/digital-pr-agency" component={DigitalPRAgency} />
+      <Route path="/services/online-brand-management" component={OnlineBrandManagement} />
+      <Route path="/services/organic-traffic-growth" component={OrganicTrafficGrowth} />
+      <Route path="/services/website-traffic-services" component={WebsiteTrafficServices} />
+      <Route path="/services/marketing-automation" component={MarketingAutomation} />
+      <Route path="/services/crm-integration-services" component={CRMIntegrationServices} />
+      <Route path="/services/funnel-optimization" component={FunnelOptimization} />
+      <Route path="/services/digital-marketing-real-estate" component={DigitalMarketingRealEstate} />
+      <Route path="/services/healthcare-digital-marketing" component={HealthcareDigitalMarketing} />
+      <Route path="/services/fintech-marketing-agency" component={FintechMarketingAgency} />
+      <Route path="/services/ecommerce-seo-services" component={EcommerceSEOServices} />
+      <Route path="/services/shopify-marketing" component={ShopifyMarketing} />
+      <Route path="/services/amazon-advertising" component={AmazonAdvertising} />
+      <Route path="/services/digital-marketing-nonprofits" component={DigitalMarketingNonprofits} />
+      <Route path="/services/law-firm-seo" component={LawFirmSEO} />
+      <Route path="/services/restaurant-marketing-online" component={RestaurantMarketingOnline} />
+      <Route path="/services/local-business-marketing" component={LocalBusinessMarketing} />
+      <Route path="/services/seo-for-dentists" component={SEOForDentists} />
+      <Route path="/services/digital-marketing-coaches" component={DigitalMarketingCoaches} />
+      <Route path="/services/online-course-marketing" component={OnlineCourseMarketing} />
+      <Route path="/services/membership-site-marketing" component={MembershipSiteMarketing} />
+      <Route path="/services/podcast-promotion-services" component={PodcastPromotionServices} />
+      <Route path="/services/webinar-marketing" component={WebinarMarketing} />
+      <Route path="/services/lead-magnet-creation" component={LeadMagnetCreation} />
+      <Route path="/services/sales-funnel-design" component={SalesFunnelDesign} />
+      <Route path="/services/digital-marketing-agency-near-me" component={DigitalMarketingAgencyNearMe} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />
