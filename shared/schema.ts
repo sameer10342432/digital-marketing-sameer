@@ -82,6 +82,7 @@ export const services = sqliteTable("services", {
     title: text("title").notNull(),
     description: text("description").notNull(),
     icon: text("icon").notNull(),
+    iconUrl: text("icon_url"),
     features: text("features"),
     published: integer("published", { mode: 'boolean' }).notNull().default(true),
     createdAt: integer("created_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
@@ -91,6 +92,7 @@ export const insertServiceSchema = z.object({
     title: z.string().min(1, "Title is required"),
     description: z.string().min(1, "Description is required"),
     icon: z.string().min(1, "Icon is required"),
+    iconUrl: z.string().optional(),
     features: z.array(z.string()).default([]),
     published: z.boolean().default(true),
 });

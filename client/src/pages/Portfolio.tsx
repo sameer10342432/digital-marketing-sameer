@@ -104,14 +104,14 @@ export default function Portfolio() {
                           ))}
                         </div>
                       )}
-                      {project.projectUrl && (
+                      {project.liveUrl && (
                         <Button 
                           variant="ghost" 
                           className="group w-full" 
                           asChild
                           data-testid={`button-view-portfolio-${project.id}`}
                         >
-                          <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                             View Project
                             <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                           </a>

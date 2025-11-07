@@ -17,6 +17,7 @@ import Login from "@/pages/Login";
 import Admin from "@/pages/Admin";
 import AdminPortfolio from "@/pages/AdminPortfolio";
 import AdminService from "@/pages/AdminService";
+import AdminContacts from "@/pages/AdminContacts";
 import AdminSubscriptions from "@/pages/AdminSubscriptions";
 import SEOOptimization from "@/pages/services/SEOOptimization";
 import PPCCampaigns from "@/pages/services/PPCCampaigns";
@@ -46,6 +47,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/admin/portfolios" component={AdminPortfolio} />
       <Route path="/admin/services" component={AdminService} />
+      <Route path="/admin/contacts" component={AdminContacts} />
       <Route path="/admin/subscriptions" component={AdminSubscriptions} />
       <Route component={NotFound} />
     </Switch>
