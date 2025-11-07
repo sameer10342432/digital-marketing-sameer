@@ -238,6 +238,11 @@ export default function AdminService() {
                   Manage Services
                 </Button>
               </Link>
+              <Link href="/admin/contacts">
+                <Button variant="outline" data-testid="button-nav-contacts">
+                  Contact Messages
+                </Button>
+              </Link>
               <Link href="/admin/subscriptions">
                 <Button variant="outline" data-testid="button-nav-subscriptions">
                   Newsletter Subscribers
