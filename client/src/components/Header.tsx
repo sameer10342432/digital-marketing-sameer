@@ -11,6 +11,7 @@ export default function Header() {
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/services', label: 'Services' },
+    { path: '/all-services', label: 'All Services' },
     { path: '/portfolio', label: 'Portfolio' },
     { path: '/blog', label: 'Blog' },
     { path: '/tools', label: 'Tools' },

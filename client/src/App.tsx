@@ -7,6 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
+import AllServices from "@/pages/AllServices";
 import Portfolio from "@/pages/Portfolio";
 import CaseStudy from "@/pages/CaseStudy";
 import Blog from "@/pages/Blog";
@@ -24,6 +25,12 @@ import PPCCampaigns from "@/pages/services/PPCCampaigns";
 import SocialMediaMarketing from "@/pages/services/SocialMediaMarketing";
 import EmailMarketing from "@/pages/services/EmailMarketing";
 import ContentStrategy from "@/pages/services/ContentStrategy";
+import DigitalMarketingAgency from "@/pages/services/DigitalMarketingAgency";
+import DigitalMarketingServices from "@/pages/services/DigitalMarketingServices";
+import SEOServices from "@/pages/services/SEOServices";
+import WebDesignServices from "@/pages/services/WebDesignServices";
+import SearchEngineMarketing from "@/pages/services/SearchEngineMarketing";
+import OnlineMarketingAgency from "@/pages/services/OnlineMarketingAgency";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -32,11 +39,18 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
+      <Route path="/all-services" component={AllServices} />
       <Route path="/services/seo-optimization" component={SEOOptimization} />
       <Route path="/services/ppc-campaigns" component={PPCCampaigns} />
       <Route path="/services/social-media-marketing" component={SocialMediaMarketing} />
       <Route path="/services/email-marketing" component={EmailMarketing} />
       <Route path="/services/content-strategy" component={ContentStrategy} />
+      <Route path="/services/digital-marketing-agency" component={DigitalMarketingAgency} />
+      <Route path="/services/digital-marketing-services" component={DigitalMarketingServices} />
+      <Route path="/services/seo-services" component={SEOServices} />
+      <Route path="/services/web-design-services" component={WebDesignServices} />
+      <Route path="/services/search-engine-marketing" component={SearchEngineMarketing} />
+      <Route path="/services/online-marketing-agency" component={OnlineMarketingAgency} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={CaseStudy} />
       <Route path="/blog" component={Blog} />

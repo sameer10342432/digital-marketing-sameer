@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ServiceContactForm from '@/components/ServiceContactForm';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
@@ -216,6 +217,12 @@ export default function EmailMarketing() {
                   Scale your email marketing with workflows that run on autopilot
                 </p>
               </Card>
+            </div>
+
+            <div className="mb-20">
+              <div className="max-w-3xl mx-auto">
+                <ServiceContactForm serviceName="Email Marketing" />
+              </div>
             </div>
 
             <Card className="p-8 md:p-12 bg-primary text-primary-foreground">

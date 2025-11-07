@@ -20,6 +20,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link href="/about" data-testid="link-footer-about"><span className="hover:text-primary transition-colors">About</span></Link></li>
               <li><Link href="/services" data-testid="link-footer-services"><span className="hover:text-primary transition-colors">Services</span></Link></li>
+              <li><Link href="/all-services" data-testid="link-footer-all-services"><span className="hover:text-primary transition-colors">All Services</span></Link></li>
               <li><Link href="/portfolio" data-testid="link-footer-portfolio"><span className="hover:text-primary transition-colors">Portfolio</span></Link></li>
               <li><Link href="/blog" data-testid="link-footer-blog"><span className="hover:text-primary transition-colors">Blog</span></Link></li>
               <li><Link href="/tools" data-testid="link-footer-tools"><span className="hover:text-primary transition-colors">Tools</span></Link></li>
@@ -29,11 +30,12 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/services/seo-optimization" data-testid="link-footer-seo"><span className="hover:text-primary transition-colors">SEO Optimization</span></Link></li>
-              <li><Link href="/services/ppc-campaigns" data-testid="link-footer-ppc"><span className="hover:text-primary transition-colors">PPC Campaigns</span></Link></li>
+              <li><Link href="/services/seo-services" data-testid="link-footer-seo-services"><span className="hover:text-primary transition-colors">SEO Services</span></Link></li>
+              <li><Link href="/services/ppc-campaigns" data-testid="link-footer-ppc"><span className="hover:text-primary transition-colors">PPC Advertising</span></Link></li>
               <li><Link href="/services/social-media-marketing" data-testid="link-footer-social"><span className="hover:text-primary transition-colors">Social Media Marketing</span></Link></li>
               <li><Link href="/services/email-marketing" data-testid="link-footer-email"><span className="hover:text-primary transition-colors">Email Marketing</span></Link></li>
-              <li><Link href="/services/content-strategy" data-testid="link-footer-content"><span className="hover:text-primary transition-colors">Content Strategy</span></Link></li>
+              <li><Link href="/services/web-design-services" data-testid="link-footer-web-design"><span className="hover:text-primary transition-colors">Web Design</span></Link></li>
+              <li><Link href="/all-services" data-testid="link-footer-view-all"><span className="hover:text-primary transition-colors font-semibold">View All Services</span></Link></li>
             </ul>
           </div>
 

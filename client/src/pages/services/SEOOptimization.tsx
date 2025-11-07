@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ServiceContactForm from '@/components/ServiceContactForm';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -170,6 +171,12 @@ export default function SEOOptimization() {
                   Generate sustainable revenue with lower customer acquisition costs
                 </p>
               </Card>
+            </div>
+
+            <div className="mb-20">
+              <div className="max-w-3xl mx-auto">
+                <ServiceContactForm serviceName="SEO Optimization" />
+              </div>
             </div>
 
             <Card className="p-8 md:p-12 bg-primary text-primary-foreground">

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ServiceContactForm from '@/components/ServiceContactForm';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
@@ -218,6 +219,12 @@ export default function ContentStrategy() {
                   <div className="text-5xl font-bold text-primary mb-4">82%</div>
                   <p className="text-muted-foreground">82% of marketers actively use content marketing as a core strategy</p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mb-20">
+              <div className="max-w-3xl mx-auto">
+                <ServiceContactForm serviceName="Content Marketing" />
               </div>
             </div>
 
