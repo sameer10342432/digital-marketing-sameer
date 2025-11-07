@@ -42,4 +42,4 @@ dist-ssr
 *.local
 
 # Misc
-.cache
+.cachesqlite.db
