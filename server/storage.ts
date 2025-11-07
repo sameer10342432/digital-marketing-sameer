@@ -78,30 +78,53 @@ export class DbStorage implements IStorage {
 
   async deleteBlog(id: number): Promise<boolean> {
     const result = await db.delete(blogs).where(eq(blogs.id, id));
-    return result.rowCount > 0;
+    return result.changes > 0;
   }
 
   async getAllPortfolios(): Promise<Portfolio[]> {
-    return db.query.portfolios.findMany({ orderBy: [desc(portfolios.createdAt)] });
+    const allPortfolios = await db.query.portfolios.findMany({ orderBy: [desc(portfolios.createdAt)] });
+    return allPortfolios.map(portfolio => ({
+      ...portfolio,
+      technologies: JSON.parse(portfolio.technologies || '[]')
+    })) as Portfolio[];
   }
 
   async getPortfolioById(id: number): Promise<Portfolio | undefined> {
-    return db.query.portfolios.findFirst({ where: eq(portfolios.id, id) });
+    const portfolio = await db.query.portfolios.findFirst({ where: eq(portfolios.id, id) });
+    if (!portfolio) return undefined;
+    return {
+      ...portfolio,
+      technologies: JSON.parse(portfolio.technologies || '[]')
+    } as Portfolio;
   }
 
   async createPortfolio(portfolio: InsertPortfolio): Promise<Portfolio> {
-    const [newPortfolio] = await db.insert(portfolios).values(portfolio).returning();
-    return newPortfolio;
+    const portfolioData = {
+      ...portfolio,
+      technologies: JSON.stringify(portfolio.technologies || [])
+    };
+    const [newPortfolio] = await db.insert(portfolios).values(portfolioData as any).returning();
+    return {
+      ...newPortfolio,
+      technologies: JSON.parse(newPortfolio.technologies || '[]')
+    } as Portfolio;
   }
 
   async updatePortfolio(id: number, portfolio: Partial<InsertPortfolio>): Promise<Portfolio | undefined> {
-    const [updatedPortfolio] = await db.update(portfolios).set(portfolio).where(eq(portfolios.id, id)).returning();
-    return updatedPortfolio;
+    const portfolioData = portfolio.technologies
+      ? { ...portfolio, technologies: JSON.stringify(portfolio.technologies) }
+      : portfolio;
+    const [updatedPortfolio] = await db.update(portfolios).set(portfolioData as any).where(eq(portfolios.id, id)).returning();
+    if (!updatedPortfolio) return undefined;
+    return {
+      ...updatedPortfolio,
+      technologies: JSON.parse(updatedPortfolio.technologies || '[]')
+    } as Portfolio;
   }
 
   async deletePortfolio(id: number): Promise<boolean> {
     const result = await db.delete(portfolios).where(eq(portfolios.id, id));
-    return result.rowCount > 0;
+    return result.changes > 0;
   }
 
   async getAllServices(): Promise<Service[]> {

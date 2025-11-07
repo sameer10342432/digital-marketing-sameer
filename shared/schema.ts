@@ -59,8 +59,9 @@ export const portfolios = sqliteTable("portfolios", {
     title: text("title").notNull(),
     description: text("description").notNull(),
     imageUrl: text("image_url"),
-    liveUrl: text("live_url"),
+    projectUrl: text("project_url"),
     category: text("category"),
+    technologies: text("technologies"),
     published: integer("published", { mode: 'boolean' }).notNull().default(true),
     createdAt: integer("created_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });
@@ -69,8 +70,9 @@ export const insertPortfolioSchema = z.object({
     title: z.string().min(1, "Title is required"),
     description: z.string().min(1, "Description is required"),
     imageUrl: z.string().optional(),
-    liveUrl: z.string().optional(),
+    projectUrl: z.string().optional(),
     category: z.string().optional(),
+    technologies: z.array(z.string()).default([]),
     published: z.boolean().default(true),
 });
 

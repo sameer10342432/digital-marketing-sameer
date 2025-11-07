@@ -151,16 +151,17 @@ export default function AdminPortfolio() {
 
   const handleEdit = (portfolio: Portfolio) => {
     setEditingPortfolio(portfolio);
+    const techs = Array.isArray(portfolio.technologies) ? portfolio.technologies : [];
     form.reset({
       title: portfolio.title,
       description: portfolio.description,
-      imageUrl: portfolio.imageUrl,
-      projectUrl: portfolio.projectUrl || '',
-      category: portfolio.category,
-      technologies: portfolio.technologies || [],
+      imageUrl: portfolio.imageUrl ?? undefined,
+      projectUrl: portfolio.projectUrl ?? undefined,
+      category: portfolio.category ?? undefined,
+      technologies: techs,
       published: portfolio.published,
     });
-    setTechnologies(portfolio.technologies?.join(', ') || '');
+    setTechnologies(techs.join(', '));
     setIsFormOpen(true);
   };
 

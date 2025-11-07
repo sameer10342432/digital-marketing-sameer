@@ -27,7 +27,7 @@ export default function Portfolio() {
 
   const publishedPortfolios = portfolios?.filter(p => p.published) || [];
   
-  const categories = ['All', ...Array.from(new Set(publishedPortfolios.map(p => p.category)))];
+  const categories = ['All', ...Array.from(new Set(publishedPortfolios.map(p => p.category).filter((c): c is string => c != null)))];
 
   const filteredProjects = activeCategory === 'All'
     ? publishedPortfolios
@@ -55,7 +55,7 @@ export default function Portfolio() {
                   variant={activeCategory === category ? 'default' : 'outline'}
                   className="cursor-pointer px-5 py-2.5 text-sm hover-elevate"
                   onClick={() => setActiveCategory(category)}
-                  data-testid={`filter-portfolio-${category.toLowerCase().replace(/\s+/g, '-')}`}
+                  data-testid={`filter-portfolio-${category ? category.toLowerCase().replace(/\s+/g, '-') : 'all'}`}
                 >
                   {category}
                 </Badge>
@@ -77,48 +77,40 @@ export default function Portfolio() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProjects.map((project) => (
-                  <Card
-                    key={project.id}
-                    className="overflow-hidden hover-elevate transition-all duration-300 hover:-translate-y-2"
-                    data-testid={`card-portfolio-${project.id}`}
-                  >
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 right-4 flex gap-2">
-                        <Badge className="bg-background/90 backdrop-blur">{project.category}</Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-3 line-clamp-2">{project.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{project.description}</p>
-                      {project.technologies && project.technologies.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.technologies.map((tech, idx) => (
-                            <Badge key={idx} variant="secondary" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
+                  <Link key={project.id} href={`/portfolio/${project.id}`}>
+                    <Card
+                      className="overflow-hidden hover-elevate transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full"
+                      data-testid={`card-portfolio-${project.id}`}
+                    >
+                      <div className="relative h-56 overflow-hidden">
+                        <img
+                          src={project.imageUrl ?? ''}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <Badge className="bg-background/90 backdrop-blur">{project.category ?? 'Uncategorized'}</Badge>
                         </div>
-                      )}
-                      {project.liveUrl && (
-                        <Button 
-                          variant="ghost" 
-                          className="group w-full" 
-                          asChild
-                          data-testid={`button-view-portfolio-${project.id}`}
-                        >
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                            View Project
-                            <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </Card>
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold mb-3 line-clamp-2">{project.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{project.description}</p>
+                        {Array.isArray(project.technologies) && project.technologies.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {project.technologies.map((tech: string, idx: number) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                        <div className="flex items-center text-sm text-primary font-medium">
+                          View Details
+                          <ArrowUpRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             )}
