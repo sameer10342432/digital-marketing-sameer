@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Blog, type InsertBlog, type Portfolio, type InsertPortfolio, type Service, type InsertService, type Subscription, type InsertSubscription, type Contact, type InsertContact, type Page, type InsertPage, users, blogs, portfolios, services, subscriptions, contacts, pages } from "@shared/schema";
+import { type User, type InsertUser, type Blog, type InsertBlog, type Portfolio, type InsertPortfolio, type Service, type InsertService, type Subscription, type InsertSubscription, type Contact, type InsertContact, type Page, type InsertPage, users, blogs, portfolios, services, subscriptions, contacts, pages } from "../shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
@@ -9,7 +9,7 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
+
   getAllBlogs(): Promise<Blog[]>;
   getBlogById(id: number): Promise<Blog | undefined>;
   getBlogBySlug(slug: string): Promise<Blog | undefined>;

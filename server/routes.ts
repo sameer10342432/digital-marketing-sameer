@@ -2,7 +2,7 @@ import type { Express } from "express";
 import express, { type Request, type Response, type NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema, insertContactSchema, insertPageSchema } from "@shared/schema";
+import { insertBlogSchema, loginSchema, insertPortfolioSchema, insertServiceSchema, insertSubscriptionSchema, insertContactSchema, insertPageSchema } from "../shared/schema";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -30,14 +30,14 @@ const storageConfig = multer.diskStorage({
   }
 });
 
-const upload = multer({ 
+const upload = multer({
   storage: storageConfig,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = allowedTypes.test(file.mimetype);
-    
+
     if (extname && mimetype) {
       cb(null, true);
     } else {
@@ -51,25 +51,32 @@ export async function registerRoutes(app: Express) {
 
   app.post("/api/auth/login", async (req, res) => {
     try {
+      console.log(`[LOGIN] Step 1: Parsing request body`);
       const { username, password } = loginSchema.parse(req.body);
-      
+
+      console.log(`[LOGIN] Step 2: Fetching user ${username}`);
       const user = await storage.getUserByUsername(username);
-      
+
       if (!user) {
+        console.log(`[LOGIN] User not found: ${username}`);
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
+      console.log(`[LOGIN] Step 3: Comparing password for user ID ${user.id}`);
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
+        console.log(`[LOGIN] Password mismatch for user: ${username}`);
         return res.status(401).json({ message: "Invalid credentials" });
       }
-      
+
+      console.log(`[LOGIN] Step 4: Setting session`);
       req.session.userId = user.id;
       req.session.username = user.username;
       req.session.role = user.role;
-      
-      res.json({ 
+
+      console.log(`[LOGIN] Success`);
+      res.json({
         message: "Login successful",
         user: {
           id: user.id,
@@ -78,6 +85,8 @@ export async function registerRoutes(app: Express) {
         }
       });
     } catch (error: any) {
+      console.error("[LOGIN] ERROR CAUGHT:", error);
+      console.error("[LOGIN] ERROR STACK:", error.stack);
       if (error.name === 'ZodError') {
         return res.status(400).json({ message: "Invalid login data", errors: error.errors });
       }
@@ -94,7 +103,7 @@ export async function registerRoutes(app: Express) {
     if (!req.session.userId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    
+
     res.json({
       id: req.session.userId,
       username: req.session.username,
@@ -112,11 +121,11 @@ export async function registerRoutes(app: Express) {
       } else if (err) {
         return res.status(400).json({ message: err.message || "Invalid file type. Only images are allowed" });
       }
-      
+
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
-      
+
       const fileUrl = `/uploads/${req.file.filename}`;
       res.json({ url: fileUrl });
     });
@@ -137,11 +146,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const blog = await storage.getBlogById(id);
-      
+
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }
-      
+
       res.json(blog);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch blog" });
@@ -152,11 +161,11 @@ export async function registerRoutes(app: Express) {
   app.get("/api/blogs/slug/:slug", async (req, res) => {
     try {
       const blog = await storage.getBlogBySlug(req.params.slug);
-      
+
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }
-      
+
       res.json(blog);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch blog" });
@@ -183,11 +192,11 @@ export async function registerRoutes(app: Express) {
       const id = parseInt(req.params.id);
       const validatedData = insertBlogSchema.partial().parse(req.body);
       const blog = await storage.updateBlog(id, validatedData);
-      
+
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }
-      
+
       res.json(blog);
     } catch (error: any) {
       if (error.name === 'ZodError') {
@@ -202,11 +211,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const deleted = await storage.deleteBlog(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ message: "Blog not found" });
       }
-      
+
       res.json({ message: "Blog deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete blog" });
@@ -228,11 +237,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const portfolio = await storage.getPortfolioById(id);
-      
+
       if (!portfolio) {
         return res.status(404).json({ message: "Portfolio not found" });
       }
-      
+
       res.json(portfolio);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch portfolio" });
@@ -259,11 +268,11 @@ export async function registerRoutes(app: Express) {
       const id = parseInt(req.params.id);
       const validatedData = insertPortfolioSchema.partial().parse(req.body);
       const portfolio = await storage.updatePortfolio(id, validatedData);
-      
+
       if (!portfolio) {
         return res.status(404).json({ message: "Portfolio not found" });
       }
-      
+
       res.json(portfolio);
     } catch (error: any) {
       if (error.name === 'ZodError') {
@@ -278,11 +287,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const deleted = await storage.deletePortfolio(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ message: "Portfolio not found" });
       }
-      
+
       res.json({ message: "Portfolio deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete portfolio" });
@@ -304,11 +313,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const service = await storage.getServiceById(id);
-      
+
       if (!service) {
         return res.status(404).json({ message: "Service not found" });
       }
-      
+
       res.json(service);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch service" });
@@ -335,11 +344,11 @@ export async function registerRoutes(app: Express) {
       const id = parseInt(req.params.id);
       const validatedData = insertServiceSchema.partial().parse(req.body);
       const service = await storage.updateService(id, validatedData);
-      
+
       if (!service) {
         return res.status(404).json({ message: "Service not found" });
       }
-      
+
       res.json(service);
     } catch (error: any) {
       if (error.name === 'ZodError') {
@@ -354,11 +363,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const deleted = await storage.deleteService(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ message: "Service not found" });
       }
-      
+
       res.json({ message: "Service deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete service" });
@@ -368,21 +377,21 @@ export async function registerRoutes(app: Express) {
   app.post("/api/subscribe", async (req, res) => {
     try {
       const validatedData = insertSubscriptionSchema.parse(req.body);
-      
+
       const existingSubscription = await storage.getSubscriptionByEmail(validatedData.email);
       if (existingSubscription) {
         return res.status(400).json({ message: "Email already subscribed" });
       }
-      
+
       const subscription = await storage.createSubscription(validatedData);
-      
+
       const notificationEmail = "sameerliaqat81@gmail.com";
       console.log(`📧 New subscription notification:`);
       console.log(`   Subscriber: ${subscription.email}`);
       console.log(`   Subscribed at: ${subscription.createdAt}`);
       console.log(`   → Notification should be sent to: ${notificationEmail}`);
-      
-      res.json({ 
+
+      res.json({
         message: "Successfully subscribed",
         subscription: {
           email: subscription.email,
@@ -410,14 +419,14 @@ export async function registerRoutes(app: Express) {
     try {
       const validatedData = insertContactSchema.parse(req.body);
       const contact = await storage.createContact(validatedData);
-      
+
       console.log(`📬 New contact form submission:`);
       console.log(`   Name: ${contact.name}`);
       console.log(`   Email: ${contact.email}`);
       console.log(`   Service: ${contact.service || 'Not specified'}`);
       console.log(`   Message: ${contact.message}`);
-      
-      res.json({ 
+
+      res.json({
         message: "Message sent successfully",
         contact: {
           id: contact.id,
@@ -446,13 +455,13 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const { status } = req.body;
-      
+
       const contact = await storage.updateContactStatus(id, status);
-      
+
       if (!contact) {
         return res.status(404).json({ message: "Contact not found" });
       }
-      
+
       res.json(contact);
     } catch (error) {
       res.status(500).json({ message: "Failed to update contact status" });
@@ -463,11 +472,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const deleted = await storage.deleteContact(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ message: "Contact not found" });
       }
-      
+
       res.json({ message: "Contact deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete contact" });
@@ -487,11 +496,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const page = await storage.getPageById(id);
-      
+
       if (!page) {
         return res.status(404).json({ message: "Page not found" });
       }
-      
+
       res.json(page);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch page" });
@@ -501,11 +510,11 @@ export async function registerRoutes(app: Express) {
   app.get("/api/pages/slug/:slug", requireAuth, async (req, res) => {
     try {
       const page = await storage.getPageBySlug(req.params.slug);
-      
+
       if (!page) {
         return res.status(404).json({ message: "Page not found" });
       }
-      
+
       res.json(page);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch page" });
@@ -530,11 +539,11 @@ export async function registerRoutes(app: Express) {
       const id = parseInt(req.params.id);
       const validatedData = insertPageSchema.partial().parse(req.body);
       const page = await storage.updatePage(id, validatedData);
-      
+
       if (!page) {
         return res.status(404).json({ message: "Page not found" });
       }
-      
+
       res.json(page);
     } catch (error: any) {
       if (error.name === 'ZodError') {
@@ -548,11 +557,11 @@ export async function registerRoutes(app: Express) {
     try {
       const id = parseInt(req.params.id);
       const deleted = await storage.deletePage(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ message: "Page not found" });
       }
-      
+
       res.json({ message: "Page deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete page" });

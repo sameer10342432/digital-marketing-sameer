@@ -20,13 +20,14 @@ declare module 'http' {
 }
 
 const app = express();
+app.set('trust proxy', 1);
 
 if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
   console.error('FATAL: SESSION_SECRET environment variable is required in production');
   process.exit(1);
 }
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000', 'http://localhost:5173'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000', 'http://localhost:5173', 'https://muhammadsameer.online', 'https://www.muhammadsameer.online'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -45,7 +46,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'production' }
+  cookie: {
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  }
 }));
 
 
@@ -112,7 +116,6 @@ app.use((req, res, next) => {
   server.listen({
     port,
     host: "0.0.0.0",
-    reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
   });
