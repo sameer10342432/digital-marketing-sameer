@@ -32,32 +32,32 @@ conn.on('ready', () => {
             // 2. Execute Commands
             const cmd = `
                 mkdir -p /root/digital-marketing &&
-                echo "Killing ALL node processes..." &&
-                (killall -9 node || true) &&
-                echo "Wiping directory..." &&
-                rm -rf /root/digital-marketing &&
-                mkdir -p /root/digital-marketing &&
+                echo "Deploying to /root/digital-marketing..." &&
+                
+                # Extract files (overwriting existing ones)
                 tar -xzf /root/deploy.tar.gz -C /root/digital-marketing &&
                 cd /root/digital-marketing &&
-                echo "Reverting Nginx Config to Port 5000..." &&
-                sed -i 's/localhost:5001/localhost:5000/g' /etc/nginx/sites-enabled/* &&
-                nginx -t &&
-                systemctl reload nginx &&
-                echo "Installing ALL dependencies..." &&
+                
+                echo "Installing production dependencies..." &&
                 npm install &&
+                
                 echo "Pushing DB Schema..." &&
                 npx drizzle-kit push &&
-                echo "Seeding Admin User..." &&
-                npx tsx server/seed-admin.ts &&
-                (pm2 delete all || true) &&
+                
+                # echo "Seeding Admin User..." &&
+                # npx tsx server/seed-admin.ts &&
+                
+                echo "Restarting PM2 process..." &&
+                (pm2 delete digital-marketing || true) &&
                 NODE_ENV=production SESSION_SECRET='super-secret-key-123' ALLOWED_ORIGINS='https://muhammadsameer.online,https://www.muhammadsameer.online' pm2 start dist/index.js --name digital-marketing --update-env &&
+                
                 sleep 5 &&
                 echo "Checking Localhost 5000 Response:" &&
-                (curl -I http://localhost:5000/assets/index-CQUKVole.js || echo "Curl failed") &&
+                (curl -I http://localhost:5000/ || echo "Curl failed") &&
+                
                 echo "Fetching PM2 Logs..." &&
-                pm2 logs digital-marketing --lines 100 --nostream &&
+                pm2 logs digital-marketing --lines 50 --nostream &&
                 echo "DEPLOY_SUCCESS"
-
             `;
 
             console.log('Executing deployment commands...');
